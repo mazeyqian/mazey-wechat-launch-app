@@ -14,31 +14,33 @@
  * @param {function} canOpenAppFromWeixin
  * @returns {void}
  */
-export default (options: {
-  jqSelector?: string;
-  launchInBrowserClassName?: string;
-  genTagPrefixStr?: string;
-  launchShowWeixinToBrowserClassName?: string;
-  launchBtnClassName?: string;
-  schemeUrl?: string;
-  wexinServiceAccountAppId?: string;
-  openPlatformMobileAppId?: string;
-  isConClosed?: boolean;
-  canLaunchApp?: (data: any) => boolean;
-  canOpenAppFromWeixin?: () => boolean;
-} = {
-  jqSelector: '',
-  launchInBrowserClassName: '',
-  genTagPrefixStr: '',
-  launchShowWeixinToBrowserClassName: '',
-  launchBtnClassName: '',
-  schemeUrl: '',
-  wexinServiceAccountAppId: '',
-  openPlatformMobileAppId: '',
-  isConClosed: true,
-  canLaunchApp: () => false,
-  canOpenAppFromWeixin: () => false
-}) => {
+export default (
+  options: {
+    jqSelector?: string;
+    launchInBrowserClassName?: string;
+    genTagPrefixStr?: string;
+    launchShowWeixinToBrowserClassName?: string;
+    launchBtnClassName?: string;
+    schemeUrl?: string;
+    wexinServiceAccountAppId?: string;
+    openPlatformMobileAppId?: string;
+    isConClosed?: boolean;
+    canLaunchApp?: (data: any) => boolean;
+    canOpenAppFromWeixin?: () => boolean;
+  } = {
+    jqSelector: "",
+    launchInBrowserClassName: "",
+    genTagPrefixStr: "",
+    launchShowWeixinToBrowserClassName: "",
+    launchBtnClassName: "",
+    schemeUrl: "",
+    wexinServiceAccountAppId: "",
+    openPlatformMobileAppId: "",
+    isConClosed: true,
+    canLaunchApp: () => false,
+    canOpenAppFromWeixin: () => false
+  }
+): void => {
   const {
     jqSelector,
     launchInBrowserClassName,
@@ -53,14 +55,14 @@ export default (options: {
     canOpenAppFromWeixin
   } = Object.assign(
     {
-      jqSelector: '',
-      launchInBrowserClassName: '',
-      genTagPrefixStr: '',
-      launchShowWeixinToBrowserClassName: '',
-      launchBtnClassName: '',
-      schemeUrl: '',
-      wexinServiceAccountAppId: '',
-      openPlatformMobileAppId: '',
+      jqSelector: "",
+      launchInBrowserClassName: "",
+      genTagPrefixStr: "",
+      launchShowWeixinToBrowserClassName: "",
+      launchBtnClassName: "",
+      schemeUrl: "",
+      wexinServiceAccountAppId: "",
+      openPlatformMobileAppId: "",
       isConClosed: true,
       canLaunchApp: () => false,
       canOpenAppFromWeixin: () => false
@@ -72,47 +74,54 @@ export default (options: {
   const sha1 = window.sha1;
   const wx = window.wx;
   const $ = window.$;
-  const LaunchCon = mazey.genCustomConsole('LaunchCon:', {
-    isClosed: isConClosed,
+  const LaunchCon = mazey.genCustomConsole("LaunchCon:", {
+    isClosed: isConClosed
   });
-  LaunchCon.log('Launch APP');
+  LaunchCon.log("Launch APP");
 
-  function renderWXOpenLaunchApp(wexinServiceAccountAppId = '', openPlatformMobileAppId = '', isShowBrowser = false) {
+  function renderWXOpenLaunchApp(
+    wexinServiceAccountAppId = "",
+    openPlatformMobileAppId = "",
+    isShowBrowser = false
+  ) {
     const wxBtnReport = () => {
       $(jqSelector).click();
     };
-    const launchBtnForBrowser = 
+    const launchBtnForBrowser =
       "<button style='" +
-        "position: fixed;" +
-        "bottom: 0;" +
-        "left: 0;" +
-        "opacity: 0;" +
-        "width: 100%;" +
-        "height: 50px;" +
-        "height: 1.44rem;" +
-        "z-index: 9993;" +
-        "border: none;" +
-        "box-sizing: border-box;" +
-        "'>" +
-        "LaunchApp" +
+      "position: fixed;" +
+      "bottom: 0;" +
+      "left: 0;" +
+      "opacity: 0;" +
+      "width: 100%;" +
+      "height: 50px;" +
+      "height: 1.44rem;" +
+      "z-index: 9993;" +
+      "border: none;" +
+      "box-sizing: border-box;" +
+      "'>" +
+      "LaunchApp" +
       "</button>";
     const launchInBrowserTip = () => {
       if ($(`.${launchInBrowserClassName}`).length === 0) {
-        $('body').append(
+        $("body").append(
           `<div id=${launchInBrowserClassName}' class='${launchInBrowserClassName}'>` +
             launchBtnForBrowser +
-          "</div>"
+            "</div>"
         );
       }
-      const mazeyLaunchBtn = document.getElementById(`${launchInBrowserClassName}`);
-      mazeyLaunchBtn && mazeyLaunchBtn.addEventListener('click', function() {
-        launchShowWeixinToBrowser();
-        wxBtnReport();
-      });
+      const mazeyLaunchBtn = document.getElementById(
+        `${launchInBrowserClassName}`
+      );
+      mazeyLaunchBtn &&
+        mazeyLaunchBtn.addEventListener("click", function() {
+          launchShowWeixinToBrowser();
+          wxBtnReport();
+        });
     };
     if (isShowBrowser) {
       launchInBrowserTip();
-      return 'success:launch_in_browser';
+      return "success:launch_in_browser";
     }
 
     return Promise.all([getTicket(), loadSha1()])
@@ -123,7 +132,15 @@ export default (options: {
         const jsapi_ticket = ticket;
         const timestamp = new Date().getTime();
         const url = location.href;
-        const string1 = 'jsapi_ticket=' + jsapi_ticket + '&noncestr=' + noncestr + '&timestamp=' + timestamp + '&url=' + url;
+        const string1 =
+          "jsapi_ticket=" +
+          jsapi_ticket +
+          "&noncestr=" +
+          noncestr +
+          "&timestamp=" +
+          timestamp +
+          "&url=" +
+          url;
         const signature = sha1(string1);
         wx.config({
           debug: false, // 开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印
@@ -131,105 +148,114 @@ export default (options: {
           timestamp: timestamp, // 必填，生成签名的时间戳
           nonceStr: noncestr, // 必填，生成签名的随机串
           signature: signature, // 必填，签名
-          jsApiList: ['showOptionMenu'], // 必填，需要使用的 JS 接口列表
-          openTagList: ['wx-open-launch-app'] // 可选，需要使用的开放标签列表
+          jsApiList: ["showOptionMenu"], // 必填，需要使用的 JS 接口列表
+          openTagList: ["wx-open-launch-app"] // 可选，需要使用的开放标签列表
         });
         wx.ready(function() {
           // config 信息验证后会执行 ready 方法，所有接口调用都必须在 config 接口获得结果之后，config 是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在 ready 函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在 ready 函数中
-          const id = mazey.getQueryParam('id') || '';
-          const sourceFrom = mazey.getQueryParam('sourceFrom') || mazey.getQueryParam('source_from') || '';
+          const id = mazey.getQueryParam("id") || "";
+          const sourceFrom =
+            mazey.getQueryParam("sourceFrom") ||
+            mazey.getQueryParam("source_from") ||
+            "";
           const genTag = (positionDomClass: string) => {
             const prefix = genTagPrefixStr;
             const positionDomId = prefix + positionDomClass;
             const launchBtn =
               `<style>.${launchBtnClassName} {` +
-                "opacity: 0;" +
-                "width: 375px;" +
-                "height: 60px;" +
-                "backgroud: transparent;" +
-                "color: #300f54;" +
-                "border: none;" +
-                "box-sizing: border-box;" +
+              "opacity: 0;" +
+              "width: 375px;" +
+              "height: 60px;" +
+              "backgroud: transparent;" +
+              "color: #300f54;" +
+              "border: none;" +
+              "box-sizing: border-box;" +
               "}</style>" +
               `<button class="${launchBtnClassName}">` +
-                "Unknown New App" +
+              "Unknown New App" +
               "</button>";
             const tagStr =
               "<wx-open-launch-app" +
-                " id='" + 
-                positionDomId +
-                "' appid='" +
-                openPlatformMobileAppId +
-                `' extinfo='${schemeUrl}?id=` +
-                id +
-                "&sourceFrom=" +
-                sourceFrom +
-                (positionDomClass !== 'open-app' ? "&position=bottom'" : "&position=top'") +
-                " style='z-index: 99; position: absolute; width: 100%; height: 100%; opacity: 1; background: transparent; overflow: hidden; left: 0;'" +
+              " id='" +
+              positionDomId +
+              "' appid='" +
+              openPlatformMobileAppId +
+              `' extinfo='${schemeUrl}?id=` +
+              id +
+              "&sourceFrom=" +
+              sourceFrom +
+              (positionDomClass !== "open-app"
+                ? "&position=bottom'"
+                : "&position=top'") +
+              " style='z-index: 99; position: absolute; width: 100%; height: 100%; opacity: 1; background: transparent; overflow: hidden; left: 0;'" +
               ">" +
-                "<script type='text/wxtag-template'>" +
-                  launchBtn +
-                "</script>" +
+              "<script type='text/wxtag-template'>" +
+              launchBtn +
+              "</script>" +
               "</wx-open-launch-app>";
-            $('.' + positionDomClass + ':eq(0)').append(tagStr);
+            $("." + positionDomClass + ":eq(0)").append(tagStr);
             const mazeyLaunchBtn = document.getElementById(positionDomId);
             if (mazeyLaunchBtn) {
-              mazeyLaunchBtn.addEventListener('ready', function() {
+              mazeyLaunchBtn.addEventListener("ready", function() {
                 // Ready
               });
-              mazeyLaunchBtn.addEventListener('launch', function() {
+              mazeyLaunchBtn.addEventListener("launch", function() {
                 // Launch
               });
-              mazeyLaunchBtn.addEventListener('error', function(e: any) {
+              mazeyLaunchBtn.addEventListener("error", function(e: any) {
                 // Error
-                LaunchCon.error('fail:', e.detail);
+                LaunchCon.error("fail:", e.detail);
                 // Prefix
                 $("[id^='" + prefix + "']").hide();
                 launchInBrowserTip();
                 $("." + positionDomClass + ":eq(0)").click();
-                if (positionDomClass !== 'open-app') {
+                if (positionDomClass !== "open-app") {
                   launchShowWeixinToBrowser();
                 }
               });
-              mazeyLaunchBtn.addEventListener('click', function(e) {
+              mazeyLaunchBtn.addEventListener("click", function(e) {
                 wxBtnReport();
               });
             }
           };
-          genTag('user-operate');
-          genTag('open-app');
+          genTag("user-operate");
+          genTag("open-app");
         });
         wx.error(function(res: any) {
-          LaunchCon.error('fail', res);
+          LaunchCon.error("fail", res);
         });
-        return 'success:launch_app';
+        return "success:launch_app";
       })
       .catch(err => {
-        LaunchCon.error('fail:launch_app', err);
+        LaunchCon.error("fail:launch_app", err);
       });
   }
 
   function launchShowWeixinToBrowser() {
     if (!window.LAUNCH_APP_HIDE_WEIXIN_BROWSER) {
-      window.LAUNCH_APP_HIDE_WEIXIN_BROWSER = function () {
-        $('.wx-share-ui.with-launch').hide();
+      window.LAUNCH_APP_HIDE_WEIXIN_BROWSER = function() {
+        $(".wx-share-ui.with-launch").hide();
       };
     }
-    if ($('.wx-share-ui.with-launch').length === 0) {
-      $('body').append(
+    if ($(".wx-share-ui.with-launch").length === 0) {
+      $("body").append(
         "<div class='wx-share-ui with-launch' onclick='window.LAUNCH_APP_HIDE_WEIXIN_BROWSER()'>" +
           `<div class='wx-img ${launchShowWeixinToBrowserClassName}' alt='Weixin'></div>` +
-        "</div>"
+          "</div>"
       );
     } else {
-      $('.wx-share-ui.with-launch').show();
+      $(".wx-share-ui.with-launch").show();
     }
   }
 
   function renderWeixinLaunchTemplate() {
     const isShowBrowser = false;
     if (canOpenAppFromWeixin()) {
-      renderWXOpenLaunchApp(wexinServiceAccountAppId, openPlatformMobileAppId, isShowBrowser);
+      renderWXOpenLaunchApp(
+        wexinServiceAccountAppId,
+        openPlatformMobileAppId,
+        isShowBrowser
+      );
     }
   }
 
@@ -247,7 +273,7 @@ export default (options: {
   }
 
   function appUpdated(data: any) {
-    LaunchCon.log('appUpdated', data);
+    LaunchCon.log("appUpdated", data);
     if (!window.LAUNCH_APP_LOAD && canLaunchApp(data)) {
       renderWeixinLaunchTemplate();
       window.LAUNCH_APP_LOAD = true;
@@ -255,7 +281,7 @@ export default (options: {
   }
 
   function appBeforeDestroy() {
-    LaunchCon.log('appBeforeDestroy', appBeforeDestroy);
+    LaunchCon.log("appBeforeDestroy", appBeforeDestroy);
     destroyWeixinLaunchEvent();
   }
 
