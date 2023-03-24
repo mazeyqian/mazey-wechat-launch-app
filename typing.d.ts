@@ -4,7 +4,7 @@
 
 interface Window {
   // METHOD
-  LAUNCH_APP_UPDATE(gameInfoData: any): void;
+  LAUNCH_APP_UPDATE(data: any): void;
   LAUNCH_APP_BEFORE_DESTROY(): void;
   LAUNCH_APP_SHOW_WEIXIN_TO_BROWSER(): void;
   // VAR
