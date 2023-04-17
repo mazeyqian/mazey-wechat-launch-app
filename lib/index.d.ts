@@ -15,15 +15,18 @@
  * @returns {void}
  */
 declare const _default: (options?: {
+    launchContainerQuery?: string | undefined;
     jqSelector?: string | undefined;
     launchInBrowserClassName?: string | undefined;
     genTagPrefixStr?: string | undefined;
+    launchShowWeixinToBrowserImgUrl?: string | undefined;
     launchShowWeixinToBrowserClassName?: string | undefined;
     launchBtnClassName?: string | undefined;
     schemeUrl?: string | undefined;
     wexinServiceAccountAppId?: string | undefined;
     openPlatformMobileAppId?: string | undefined;
     isConClosed?: boolean | undefined;
+    isWxDebug?: boolean | undefined;
     canLaunchApp?: ((data: any) => boolean) | undefined;
     canOpenAppFromWeixin?: (() => boolean) | undefined;
 }) => void;

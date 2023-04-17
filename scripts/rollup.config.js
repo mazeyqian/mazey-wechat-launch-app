@@ -68,10 +68,10 @@ export default {
       banner,
     },
     {
-      file: _resolve(`../lib/${pkgName}.min.js`),
+      file: _resolve(`../lib/${'launch-app' || pkgName}.min.js`),
       format: 'iife',
-      name: iifeName,
-      banner,
+      name: 'LAUNCH_APP' || iifeName,
+      // banner,
     },
   ],
   plugins,
