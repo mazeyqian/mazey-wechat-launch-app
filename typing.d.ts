@@ -17,3 +17,9 @@ interface Window {
   sha1: any;
   $: any;
 }
+
+interface retVal {
+  LAUNCH_APP_UPDATE(data: any): void;
+  LAUNCH_APP_BEFORE_DESTROY(): void;
+  LAUNCH_APP_SHOW_WEIXIN_TO_BROWSER(): void;
+}

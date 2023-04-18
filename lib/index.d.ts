@@ -1,8 +1,7 @@
 /**
- * Launch APP
+ * Launch App
  *
  * @param {string} jqSelector Example: '#mazey-wx-btn-report'
- * @param {string} launchInBrowserClassName Example: 'mazey-launch-in-browser-btn'
  * @param {string} genTagPrefixStr Example: 'mazey-launch-btn-'
  * @param {string} launchShowWeixinToBrowserClassName Example: 'mazey-wx-to-browser'
  * @param {string} launchBtnClassName Example: 'mazey-btn'
@@ -17,18 +16,20 @@
 declare const _default: (options?: {
     launchContainerQuery?: string | undefined;
     jqSelector?: string | undefined;
-    launchInBrowserClassName?: string | undefined;
     genTagPrefixStr?: string | undefined;
     launchShowWeixinToBrowserImgUrl?: string | undefined;
     launchShowWeixinToBrowserClassName?: string | undefined;
     launchBtnClassName?: string | undefined;
+    launchBtnStyle?: string | undefined;
+    launchBtnText?: string | undefined;
     schemeUrl?: string | undefined;
     wexinServiceAccountAppId?: string | undefined;
     openPlatformMobileAppId?: string | undefined;
+    canContinuousUpdating?: boolean | undefined;
     isConClosed?: boolean | undefined;
     isWxDebug?: boolean | undefined;
     canLaunchApp?: ((data: any) => boolean) | undefined;
     canOpenAppFromWeixin?: (() => boolean) | undefined;
-}) => void;
+}) => retVal;
 export default _default;
 //# sourceMappingURL=index.d.ts.map
