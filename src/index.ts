@@ -219,8 +219,6 @@ export default (
               });
             }
           };
-          // genTag('user-operate');
-          // genTag('open-app');
           const batchGenerateWxTag = () => {
             const containers = $(launchContainerQuery);
             LaunchCon.log(
@@ -322,14 +320,9 @@ export default (
   }
 
   function renderWeixinLaunchTemplate() {
-    // const isShowBrowser = false;
     if (canOpenAppFromWeixin()) {
       LaunchCon.log('renderWeixinLaunchTemplate');
-      renderWXOpenLaunchApp(
-        wexinServiceAccountAppId,
-        openPlatformMobileAppId
-        // isShowBrowser
-      );
+      renderWXOpenLaunchApp(wexinServiceAccountAppId, openPlatformMobileAppId);
     }
   }
 
