@@ -2,9 +2,8 @@
 const defaultOptions = {
   launchContainerQuery: '',
   jqSelector: '',
-  // launchInBrowserClassName: '',
   launchShowWeixinToBrowserImgUrl: '',
-  schemeUrl: '',
+  extInfo: '',
   wexinServiceAccountAppId: '',
   openPlatformMobileAppId: '',
   genTagPrefixStr: 'mazey-launch-app-btn-prefix-',
@@ -26,7 +25,7 @@ const defaultOptions = {
  * @param {string} genTagPrefixStr Example: 'mazey-launch-btn-'
  * @param {string} launchShowWeixinToBrowserClassName Example: 'mazey-wx-to-browser'
  * @param {string} launchBtnClassName Example: 'mazey-btn'
- * @param {string} schemeUrl Example: 'mazey://launch/page'
+ * @param {string} extInfo Example: 'mazey://launch/page'
  * @param {string} wexinServiceAccountAppId Example: 'wx1234'
  * @param {string} openPlatformMobileAppId Example: 'wx5678'
  * @param {boolean} isConClosed
@@ -38,14 +37,13 @@ export default (
   options: {
     launchContainerQuery?: string;
     jqSelector?: string;
-    // launchInBrowserClassName?: string;
     genTagPrefixStr?: string;
     launchShowWeixinToBrowserImgUrl?: string;
     launchShowWeixinToBrowserClassName?: string;
     launchBtnClassName?: string;
     launchBtnStyle?: string;
     launchBtnText?: string;
-    schemeUrl?: string;
+    extInfo?: string;
     wexinServiceAccountAppId?: string;
     openPlatformMobileAppId?: string;
     canContinuousUpdating?: boolean;
@@ -55,17 +53,16 @@ export default (
     canOpenAppFromWeixin?: () => boolean;
   } = defaultOptions
 ): retVal => {
+  const _options = Object.assign(defaultOptions, options);
   const {
     launchContainerQuery,
     jqSelector,
-    // launchInBrowserClassName,
     genTagPrefixStr,
     launchShowWeixinToBrowserImgUrl,
     launchShowWeixinToBrowserClassName,
     launchBtnClassName,
     launchBtnStyle,
     launchBtnText,
-    schemeUrl,
     wexinServiceAccountAppId,
     openPlatformMobileAppId,
     canContinuousUpdating,
@@ -73,7 +70,8 @@ export default (
     isWxDebug,
     canLaunchApp,
     canOpenAppFromWeixin,
-  } = Object.assign(defaultOptions, options);
+  } = _options;
+  let { extInfo } = _options;
   // Build:
   const mazey = window.mazey;
   const sha1 = window.sha1;
@@ -88,49 +86,11 @@ export default (
   function renderWXOpenLaunchApp(
     wexinServiceAccountAppId = '',
     openPlatformMobileAppId = ''
-    // isShowBrowser = false
   ) {
     LaunchCon.log('renderWXOpenLaunchApp');
     const wxBtnReport = () => {
       $(jqSelector).click();
     };
-    // const launchBtnForBrowser =
-    //   '<button style=\'' +
-    //   'position: fixed;' +
-    //   'bottom: 0;' +
-    //   'left: 0;' +
-    //   'opacity: 0;' +
-    //   'width: 100%;' +
-    //   'height: 50px;' +
-    //   'height: 1.44rem;' +
-    //   'z-index: 9993;' +
-    //   'border: none;' +
-    //   'box-sizing: border-box;' +
-    //   '\'>' +
-    //   'LaunchApp' +
-    //   '</button>';
-    // const launchInBrowserTip = () => {
-    //   if ($(`.${launchInBrowserClassName}`).length === 0) {
-    //     $('body').append(
-    //       `<div id=${launchInBrowserClassName}' class='${launchInBrowserClassName}'>` +
-    //         launchBtnForBrowser +
-    //         '</div>'
-    //     );
-    //   }
-    //   const mazeyLaunchBtn = document.getElementById(
-    //     `${launchInBrowserClassName}`
-    //   );
-    //   mazeyLaunchBtn &&
-    //     mazeyLaunchBtn.addEventListener('click', function() {
-    //       launchShowWeixinToBrowser();
-    //       wxBtnReport();
-    //     });
-    // };
-    // if (isShowBrowser) {
-    //   launchInBrowserTip();
-    //   return 'success:launch_in_browser';
-    // }
-    // Unique Logic ↑
 
     return Promise.all([getTicket(), loadSha1()])
       .then(allRes => {
@@ -162,63 +122,6 @@ export default (
         });
         wx.ready(function() {
           // config 信息验证后会执行 ready 方法，所有接口调用都必须在 config 接口获得结果之后，config 是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在 ready 函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在 ready 函数中
-          const genTag = (positionDomClass: string) => {
-            const prefix = genTagPrefixStr;
-            const positionDomId = prefix + positionDomClass;
-            const launchBtn =
-              `<style>.${launchBtnClassName} {` +
-              'opacity: 0;' +
-              'width: 100%;' +
-              'height: 100%;' +
-              'backgroud: transparent;' +
-              'color: #300f54;' +
-              'border: none;' +
-              'box-sizing: border-box;' +
-              'text-align: center;' +
-              'vertical-align: middle;' +
-              launchBtnStyle +
-              // 'top: 0; right: 0; bottom: 0; left: 0;' +
-              '}</style>' +
-              `<button class="${launchBtnClassName}">` +
-              launchBtnText +
-              '</button>';
-            const tagStr =
-              '<wx-open-launch-app' +
-              ' id=\'' +
-              positionDomId +
-              '\' appid=\'' +
-              openPlatformMobileAppId +
-              `' extinfo='${schemeUrl}` +
-              '\'' +
-              ' style=\'z-index: 99; position: absolute; width: 100%; height: 100%; opacity: 1; background: transparent; overflow: hidden; left: 0;\'' +
-              '>' +
-              '<script type=\'text/wxtag-template\'>' +
-              launchBtn +
-              '</script>' +
-              '</wx-open-launch-app>';
-            $('.' + positionDomClass + ':eq(0)').append(tagStr);
-            const mazeyLaunchBtn = document.getElementById(positionDomId);
-            if (mazeyLaunchBtn) {
-              mazeyLaunchBtn.addEventListener('ready', function() {
-                // Ready
-              });
-              mazeyLaunchBtn.addEventListener('launch', function() {
-                // Launch
-              });
-              mazeyLaunchBtn.addEventListener('error', function(e: any) {
-                // Error
-                LaunchCon.error('fail:', e.detail);
-                // Prefix
-                $('[id^=\'' + prefix + '\']').hide();
-                // launchInBrowserTip();
-                $('.' + positionDomClass + ':eq(0)').click();
-                launchShowWeixinToBrowser();
-              });
-              mazeyLaunchBtn.addEventListener('click', function(e) {
-                wxBtnReport();
-              });
-            }
-          };
           const batchGenerateWxTag = () => {
             const containers = $(launchContainerQuery);
             LaunchCon.log(
@@ -241,12 +144,86 @@ export default (
                   key = index;
                 }
                 const positionDomClass = `mazey-launch-app-tag-${key}`;
-                // const existClassName = 'mazey-launch-app-tag-exist';
-                const tag = $(`.${positionDomClass} wx-open-launch-app`); // May be duplicate?
-                // if (tag.length === 0 && !$(el).hasClass(existClassName)) {
+                const tag = $(`.${positionDomClass} wx-open-launch-app`);
+                let eleExtInfo = $(el).attr('data-launch-app-ext-info');
+                if (!eleExtInfo) {
+                  const eleExtInfoEle = $(el).parents(
+                    '[data-launch-app-ext-info]:eq(0)'
+                  );
+                  if (eleExtInfoEle.length > 0) {
+                    eleExtInfo = eleExtInfoEle.attr('data-launch-app-ext-info');
+                    LaunchCon.log(
+                      'eleExtInfoEle parents',
+                      eleExtInfoEle,
+                      eleExtInfo
+                    );
+                  }
+                }
+                if (eleExtInfo) {
+                  extInfo = eleExtInfo;
+                }
+                const genTag = (positionDomClass: string) => {
+                  const prefix = genTagPrefixStr;
+                  const positionDomId = prefix + positionDomClass;
+                  const launchBtn =
+                    `<style>.${launchBtnClassName} {` +
+                    'opacity: 0;' +
+                    'width: 100%;' +
+                    'height: 100%;' +
+                    'backgroud: transparent;' +
+                    'color: #300f54;' +
+                    'border: none;' +
+                    'box-sizing: border-box;' +
+                    'text-align: center;' +
+                    'vertical-align: middle;' +
+                    launchBtnStyle +
+                    // 'top: 0; right: 0; bottom: 0; left: 0;' +
+                    '}</style>' +
+                    `<button class="${launchBtnClassName}">` +
+                    launchBtnText +
+                    '</button>';
+                  const tagStr =
+                    '<wx-open-launch-app' +
+                    ' id=\'' +
+                    positionDomId +
+                    '\' appid=\'' +
+                    openPlatformMobileAppId +
+                    `' extinfo='${extInfo}` +
+                    '\'' +
+                    ' style=\'z-index: 99; position: absolute; width: 100%; height: 100%; opacity: 1; background: transparent; overflow: hidden; left: 0;\'' +
+                    '>' +
+                    '<script type=\'text/wxtag-template\'>' +
+                    launchBtn +
+                    '</script>' +
+                    '</wx-open-launch-app>';
+                  $('.' + positionDomClass + ':eq(0)').append(tagStr);
+                  const mazeyLaunchBtn = document.getElementById(positionDomId);
+                  if (mazeyLaunchBtn) {
+                    mazeyLaunchBtn.addEventListener('ready', function(e) {
+                      // Ready
+                      LaunchCon.log('ready event', e);
+                    });
+                    mazeyLaunchBtn.addEventListener('launch', function(e) {
+                      // Launch
+                      LaunchCon.log('launch event', e);
+                    });
+                    mazeyLaunchBtn.addEventListener('error', function(e: any) {
+                      // Error
+                      LaunchCon.error('fail:', e.detail);
+                      // Prefix
+                      $('[id^=\'' + prefix + '\']').hide();
+                      // launchInBrowserTip();
+                      $('.' + positionDomClass + ':eq(0)').click();
+                      launchShowWeixinToBrowser();
+                    });
+                    mazeyLaunchBtn.addEventListener('click', function(e) {
+                      LaunchCon.log('click event', e);
+                      wxBtnReport();
+                    });
+                  }
+                };
                 if (tag.length === 0) {
                   $(el).addClass(positionDomClass);
-                  // $(el).addClass(existClassName);
                   LaunchCon.log('success:', positionDomClass);
                   genTag(positionDomClass);
                 }
@@ -267,38 +244,36 @@ export default (
   }
 
   function launchShowWeixinToBrowser() {
-    mazey.addStyle(
-      `
-        .mazey-launch-app-mask {
-          position: fixed;
-          top: 0; right: 0; bottom: 0; left: 0;
-          background-color: rgba(0, 0, 0, .5);
-          text-align: right;
-          font-size: 0;
-          white-space: nowrap;
-          overflow: auto;
-          z-index: 999;
-        }
-        .mazey-launch-app-img {
-          display: inline-block;
-          vertical-align: middle;
-          text-align: left;
-          font-size: 14px;
-          white-space: normal;
-          width: 50vw;
-          margin: 0.5rem 0.5rem 0 0;
-        }
-        .mazey-launch-app-img:after {
-          content: '';
-          display: inline-block;
-          height: 100%;
-          vertical-align: middle;
-        }
-      `,
-      {
-        id: 'mazey-launch-app-mask-style',
+    const styleStr = `
+      .mazey-launch-app-mask {
+        position: fixed;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background-color: rgba(0, 0, 0, .5);
+        text-align: right;
+        font-size: 0;
+        white-space: nowrap;
+        overflow: auto;
+        z-index: 999;
       }
-    );
+      .mazey-launch-app-img {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: left;
+        font-size: 14px;
+        white-space: normal;
+        width: 50vw;
+        margin: 0.5rem 0.5rem 0 0;
+      }
+      .mazey-launch-app-img:after {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+      }
+    `;
+    mazey.addStyle(styleStr, {
+      id: 'mazey-launch-app-mask-style',
+    });
     if (!window.LAUNCH_APP_HIDE_WEIXIN_BROWSER) {
       window.LAUNCH_APP_HIDE_WEIXIN_BROWSER = function() {
         $('.mazey-launch-app-mask').hide();
