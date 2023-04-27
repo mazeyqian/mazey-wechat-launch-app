@@ -15,7 +15,6 @@
  */
 declare const _default: (options?: {
     launchContainerQuery?: string | undefined;
-    jqSelector?: string | undefined;
     genTagPrefixStr?: string | undefined;
     launchShowWeixinToBrowserImgUrl?: string | undefined;
     launchShowWeixinToBrowserClassName?: string | undefined;
@@ -29,7 +28,7 @@ declare const _default: (options?: {
     isConClosed?: boolean | undefined;
     isWxDebug?: boolean | undefined;
     canLaunchApp?: ((data: any) => boolean) | undefined;
-    canOpenAppFromWeixin?: (() => boolean) | undefined;
+    launchBtnClick?: (() => void) | undefined;
 }) => retVal;
 export default _default;
 //# sourceMappingURL=index.d.ts.map

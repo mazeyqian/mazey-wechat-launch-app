@@ -1,7 +1,7 @@
 // Default options.
 const defaultOptions = {
   launchContainerQuery: '',
-  jqSelector: '',
+  // jqSelector: '',
   launchShowWeixinToBrowserImgUrl: '',
   extInfo: '',
   wexinServiceAccountAppId: '',
@@ -10,12 +10,13 @@ const defaultOptions = {
   launchShowWeixinToBrowserClassName: 'mazey-launch-app-wx-to-browser',
   launchBtnClassName: 'mazey-launch-app-inner-btn',
   launchBtnStyle: '',
-  launchBtnText: 'Launch App',
+  launchBtnText: 'Launch App ;-)',
   canContinuousUpdating: false,
   isConClosed: true,
   isWxDebug: false,
-  canLaunchApp: () => false,
-  canOpenAppFromWeixin: () => true,
+  canLaunchApp: () => true,
+  // canOpenAppFromWeixin: () => true,
+  launchBtnClick: () => undefined,
 };
 
 /**
@@ -36,7 +37,7 @@ const defaultOptions = {
 export default (
   options: {
     launchContainerQuery?: string;
-    jqSelector?: string;
+    // jqSelector?: string;
     genTagPrefixStr?: string;
     launchShowWeixinToBrowserImgUrl?: string;
     launchShowWeixinToBrowserClassName?: string;
@@ -50,13 +51,14 @@ export default (
     isConClosed?: boolean;
     isWxDebug?: boolean;
     canLaunchApp?: (data: any) => boolean;
-    canOpenAppFromWeixin?: () => boolean;
+    // canOpenAppFromWeixin?: () => boolean;
+    launchBtnClick?: () => void;
   } = defaultOptions
 ): retVal => {
   const _options = Object.assign(defaultOptions, options);
   const {
     launchContainerQuery,
-    jqSelector,
+    // jqSelector,
     genTagPrefixStr,
     launchShowWeixinToBrowserImgUrl,
     launchShowWeixinToBrowserClassName,
@@ -69,7 +71,8 @@ export default (
     isConClosed,
     isWxDebug,
     canLaunchApp,
-    canOpenAppFromWeixin,
+    // canOpenAppFromWeixin,
+    launchBtnClick,
   } = _options;
   let { extInfo } = _options;
   // Build:
@@ -88,9 +91,9 @@ export default (
     openPlatformMobileAppId = ''
   ) {
     LaunchCon.log('renderWXOpenLaunchApp');
-    const wxBtnReport = () => {
-      $(jqSelector).click();
-    };
+    // const wxBtnReport = () => {
+    //   $(jqSelector).click();
+    // };
 
     return Promise.all([getTicket(), loadSha1()])
       .then(allRes => {
@@ -203,9 +206,12 @@ export default (
                       // Ready
                       LaunchCon.log('ready event', e);
                     });
-                    mazeyLaunchBtn.addEventListener('launch', function(e) {
+                    mazeyLaunchBtn.addEventListener('launch', function(e: any) {
                       // Launch
                       LaunchCon.log('launch event', e);
+                      if (e.detail && e.detail.extInfo) {
+                        LaunchCon.log('launch extInfo', e.detail.extInfo);
+                      }
                     });
                     mazeyLaunchBtn.addEventListener('error', function(e: any) {
                       // Error
@@ -218,7 +224,8 @@ export default (
                     });
                     mazeyLaunchBtn.addEventListener('click', function(e) {
                       LaunchCon.log('click event', e);
-                      wxBtnReport();
+                      // wxBtnReport();
+                      launchBtnClick();
                     });
                   }
                 };
@@ -295,10 +302,9 @@ export default (
   }
 
   function renderWeixinLaunchTemplate() {
-    if (canOpenAppFromWeixin()) {
-      LaunchCon.log('renderWeixinLaunchTemplate');
-      renderWXOpenLaunchApp(wexinServiceAccountAppId, openPlatformMobileAppId);
-    }
+    // if (canOpenAppFromWeixin()) {}
+    LaunchCon.log('renderWeixinLaunchTemplate');
+    renderWXOpenLaunchApp(wexinServiceAccountAppId, openPlatformMobileAppId);
   }
 
   function loadSha1() {
