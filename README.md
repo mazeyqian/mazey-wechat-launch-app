@@ -1,5 +1,3 @@
-⚠️ Note: The project is a template for NPM. Please don't use it directly.
-
 # mazey-wechat-launch-app
 
 [![NPM version][npm-image]][npm-url]
@@ -22,20 +20,18 @@ npm install mazey-wechat-launch-app --save
 
 ## Usage
 
-Foo foo foo example.
-
 ```
-import { foo } from 'mazey-wechat-launch-app';
+import LAUNCH_APP from 'mazey-wechat-launch-app';
 
-foo(); // true
-```
+const options = {
+  launchContainerQuery: '.example-btn',
+  launchShowWeixinToBrowserImgUrl: '//example.com/example.png',
+  extInfo: 'example://example/example',
+  wexinServiceAccountAppId: 'example',
+  openPlatformMobileAppId: 'example',
+};
 
-Bar bar bar example.
-
-```
-import { bar } from 'mazey-wechat-launch-app';
-
-bar(); // false
+LAUNCH_APP(options);
 ```
 
 ## Contributing
