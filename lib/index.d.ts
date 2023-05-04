@@ -25,6 +25,8 @@ declare const _default: (options?: {
     wexinServiceAccountAppId?: string | undefined;
     openPlatformMobileAppId?: string | undefined;
     canContinuousUpdating?: boolean | undefined;
+    onMenuShareTimelineOptions?: MenuShareTimelineOptions | undefined;
+    onMenuShareAppMessageOptions?: MenuShareAppMessageOptions | undefined;
     isConClosed?: boolean | undefined;
     isWxDebug?: boolean | undefined;
     canLaunchApp?: ((data: any) => boolean) | undefined;

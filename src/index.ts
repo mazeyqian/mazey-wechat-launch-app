@@ -12,6 +12,8 @@ const defaultOptions = {
   launchBtnStyle: '',
   launchBtnText: 'Launch App ;-)',
   canContinuousUpdating: false,
+  onMenuShareTimelineOptions: undefined,
+  onMenuShareAppMessageOptions: undefined,
   isConClosed: true,
   isWxDebug: false,
   canLaunchApp: () => true,
@@ -48,6 +50,8 @@ export default (
     wexinServiceAccountAppId?: string;
     openPlatformMobileAppId?: string;
     canContinuousUpdating?: boolean;
+    onMenuShareTimelineOptions?: MenuShareTimelineOptions;
+    onMenuShareAppMessageOptions?: MenuShareAppMessageOptions;
     isConClosed?: boolean;
     isWxDebug?: boolean;
     canLaunchApp?: (data: any) => boolean;
@@ -68,6 +72,8 @@ export default (
     wexinServiceAccountAppId,
     openPlatformMobileAppId,
     canContinuousUpdating,
+    onMenuShareTimelineOptions,
+    onMenuShareAppMessageOptions,
     isConClosed,
     isWxDebug,
     canLaunchApp,
@@ -76,6 +82,17 @@ export default (
   } = _options;
   let { extInfo } = _options;
   // Build:
+  const LAUNCH_APP_SHARE_TIMELINE: LAUNCH_APP_SHARE_TIMELINE = (
+    opt: MenuShareTimelineOptions
+  ) => {
+    LaunchCon.log('opt', opt);
+  };
+  // let LAUNCH_APP_SHARE_APP_MESSAGE: LAUNCH_APP_SHARE_APP_MESSAGE;
+  const LAUNCH_APP_SHARE_APP_MESSAGE: LAUNCH_APP_SHARE_APP_MESSAGE = (
+    opt: MenuShareAppMessageOptions
+  ) => {
+    LaunchCon.log('opt', opt);
+  };
   const mazey = window.mazey;
   const sha1 = window.sha1;
   const wx = window.wx;
@@ -120,11 +137,44 @@ export default (
           timestamp: timestamp, // 必填，生成签名的时间戳
           nonceStr: noncestr, // 必填，生成签名的随机串
           signature: signature, // 必填，签名
-          jsApiList: ['showOptionMenu'], // 必填，需要使用的 JS 接口列表
+          jsApiList: [
+            'showOptionMenu',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+          ], // 必填，需要使用的 JS 接口列表
           openTagList: ['wx-open-launch-app'], // 可选，需要使用的开放标签列表
         });
         wx.ready(function() {
+          window.LAUNCH_APP_READY = true;
           // config 信息验证后会执行 ready 方法，所有接口调用都必须在 config 接口获得结果之后，config 是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在 ready 函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在 ready 函数中
+          // Share to timeline
+          if (onMenuShareTimelineOptions) {
+            LaunchCon.log(
+              'onMenuShareTimelineOptions',
+              onMenuShareTimelineOptions
+            );
+            wx.onMenuShareTimeline(onMenuShareTimelineOptions);
+          }
+          window.LAUNCH_APP_SHARE_TIMELINE = (
+            opt: MenuShareTimelineOptions
+          ) => {
+            LaunchCon.log('window LAUNCH_APP_SHARE_TIMELINE', opt);
+            wx.onMenuShareTimeline(opt);
+          };
+          // Share to app message
+          if (onMenuShareAppMessageOptions) {
+            LaunchCon.log(
+              'onMenuShareAppMessageOptions',
+              onMenuShareAppMessageOptions
+            );
+            wx.onMenuShareAppMessage(onMenuShareAppMessageOptions);
+          }
+          window.LAUNCH_APP_SHARE_APP_MESSAGE = (
+            opt: MenuShareAppMessageOptions
+          ) => {
+            LaunchCon.log('window LAUNCH_APP_SHARE_APP_MESSAGE', opt);
+            wx.onMenuShareAppMessage(opt);
+          };
           const batchGenerateWxTag = () => {
             const containers = $(launchContainerQuery);
             LaunchCon.log(
@@ -339,10 +389,14 @@ export default (
   window.LAUNCH_APP_UPDATE = appUpdated;
   window.LAUNCH_APP_BEFORE_DESTROY = appBeforeDestroy;
   window.LAUNCH_APP_SHOW_WEIXIN_TO_BROWSER = launchShowWeixinToBrowser;
+  // window.LAUNCH_APP_SHARE_TIMELINE = LAUNCH_APP_SHARE_TIMELINE;
+  // window.LAUNCH_APP_SHARE_APP_MESSAGE = LAUNCH_APP_SHARE_APP_MESSAGE;
 
   return {
     LAUNCH_APP_UPDATE: appUpdated,
     LAUNCH_APP_BEFORE_DESTROY: appBeforeDestroy,
     LAUNCH_APP_SHOW_WEIXIN_TO_BROWSER: launchShowWeixinToBrowser,
+    LAUNCH_APP_SHARE_TIMELINE,
+    LAUNCH_APP_SHARE_APP_MESSAGE,
   };
 };
