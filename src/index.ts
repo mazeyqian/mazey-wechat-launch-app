@@ -1,5 +1,6 @@
 // Default options.
 const defaultOptions = {
+  weixinJsSdkTicket: '',
   launchContainerQuery: '',
   launchShowWeixinToBrowserImgUrl: '',
   extInfo: '',
@@ -26,6 +27,7 @@ const defaultOptions = {
  */
 export default (
   options: {
+    weixinJsSdkTicket?: string;
     launchContainerQuery?: string;
     genTagPrefixStr?: string;
     launchShowWeixinToBrowserImgUrl?: string;
@@ -47,6 +49,7 @@ export default (
 ): retVal => {
   const _options = Object.assign(defaultOptions, options);
   const {
+    weixinJsSdkTicket,
     launchContainerQuery,
     genTagPrefixStr,
     launchShowWeixinToBrowserImgUrl,
@@ -247,8 +250,9 @@ export default (
                       LaunchCon.error('fail:', e.detail);
                       // Prefix
                       $('[id^=\'' + prefix + '\']').hide();
-                      $('.' + positionDomClass + ':eq(0)').click();
-                      launchShowWeixinToBrowser();
+                      // TODO
+                      // $('.' + positionDomClass + ':eq(0)').click();
+                      // launchShowWeixinToBrowser();
                     });
                     mazeyLaunchBtn.addEventListener('click', function(e) {
                       LaunchCon.log('click event', e);
@@ -338,7 +342,7 @@ export default (
   }
 
   function getTicket() {
-    return Promise.resolve(window.LAUNCH_APP_WEIXIN_JS_SDK_TICKET);
+    return Promise.resolve(weixinJsSdkTicket || window.LAUNCH_APP_WEIXIN_JS_SDK_TICKET);
   }
 
   function destroyWeixinLaunchEvent() {
