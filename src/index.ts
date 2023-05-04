@@ -1,7 +1,6 @@
 // Default options.
 const defaultOptions = {
   launchContainerQuery: '',
-  // jqSelector: '',
   launchShowWeixinToBrowserImgUrl: '',
   extInfo: '',
   wexinServiceAccountAppId: '',
@@ -9,7 +8,7 @@ const defaultOptions = {
   genTagPrefixStr: 'mazey-launch-app-btn-prefix-',
   launchShowWeixinToBrowserClassName: 'mazey-launch-app-wx-to-browser',
   launchBtnClassName: 'mazey-launch-app-inner-btn',
-  launchBtnStyle: '',
+  launchBtnStyle: '', // 'top: 0; right: 0; bottom: 0; left: 0;' +
   launchBtnText: 'Launch App ;-)',
   canContinuousUpdating: false,
   onMenuShareTimelineOptions: undefined,
@@ -17,29 +16,17 @@ const defaultOptions = {
   isConClosed: true,
   isWxDebug: false,
   canLaunchApp: () => true,
-  // canOpenAppFromWeixin: () => true,
   launchBtnClick: () => undefined,
 };
 
 /**
  * Launch App
  *
- * @param {string} jqSelector Example: '#mazey-wx-btn-report'
- * @param {string} genTagPrefixStr Example: 'mazey-launch-btn-'
- * @param {string} launchShowWeixinToBrowserClassName Example: 'mazey-wx-to-browser'
- * @param {string} launchBtnClassName Example: 'mazey-btn'
- * @param {string} extInfo Example: 'mazey://launch/page'
- * @param {string} wexinServiceAccountAppId Example: 'wx1234'
- * @param {string} openPlatformMobileAppId Example: 'wx5678'
- * @param {boolean} isConClosed
- * @param {function} canLaunchApp
- * @param {function} canOpenAppFromWeixin
  * @returns {void}
  */
 export default (
   options: {
     launchContainerQuery?: string;
-    // jqSelector?: string;
     genTagPrefixStr?: string;
     launchShowWeixinToBrowserImgUrl?: string;
     launchShowWeixinToBrowserClassName?: string;
@@ -55,14 +42,12 @@ export default (
     isConClosed?: boolean;
     isWxDebug?: boolean;
     canLaunchApp?: (data: any) => boolean;
-    // canOpenAppFromWeixin?: () => boolean;
     launchBtnClick?: () => void;
   } = defaultOptions
 ): retVal => {
   const _options = Object.assign(defaultOptions, options);
   const {
     launchContainerQuery,
-    // jqSelector,
     genTagPrefixStr,
     launchShowWeixinToBrowserImgUrl,
     launchShowWeixinToBrowserClassName,
@@ -77,7 +62,6 @@ export default (
     isConClosed,
     isWxDebug,
     canLaunchApp,
-    // canOpenAppFromWeixin,
     launchBtnClick,
   } = _options;
   let { extInfo } = _options;
@@ -87,7 +71,6 @@ export default (
   ) => {
     LaunchCon.log('opt', opt);
   };
-  // let LAUNCH_APP_SHARE_APP_MESSAGE: LAUNCH_APP_SHARE_APP_MESSAGE;
   const LAUNCH_APP_SHARE_APP_MESSAGE: LAUNCH_APP_SHARE_APP_MESSAGE = (
     opt: MenuShareAppMessageOptions
   ) => {
@@ -108,9 +91,6 @@ export default (
     openPlatformMobileAppId = ''
   ) {
     LaunchCon.log('renderWXOpenLaunchApp');
-    // const wxBtnReport = () => {
-    //   $(jqSelector).click();
-    // };
 
     return Promise.all([getTicket(), loadSha1()])
       .then(allRes => {
@@ -230,7 +210,6 @@ export default (
                     'text-align: center;' +
                     'vertical-align: middle;' +
                     launchBtnStyle +
-                    // 'top: 0; right: 0; bottom: 0; left: 0;' +
                     '}</style>' +
                     `<button class="${launchBtnClassName}">` +
                     launchBtnText +
@@ -268,13 +247,11 @@ export default (
                       LaunchCon.error('fail:', e.detail);
                       // Prefix
                       $('[id^=\'' + prefix + '\']').hide();
-                      // launchInBrowserTip();
                       $('.' + positionDomClass + ':eq(0)').click();
                       launchShowWeixinToBrowser();
                     });
                     mazeyLaunchBtn.addEventListener('click', function(e) {
                       LaunchCon.log('click event', e);
-                      // wxBtnReport();
                       launchBtnClick();
                     });
                   }
@@ -352,7 +329,6 @@ export default (
   }
 
   function renderWeixinLaunchTemplate() {
-    // if (canOpenAppFromWeixin()) {}
     LaunchCon.log('renderWeixinLaunchTemplate');
     renderWXOpenLaunchApp(wexinServiceAccountAppId, openPlatformMobileAppId);
   }
@@ -389,8 +365,6 @@ export default (
   window.LAUNCH_APP_UPDATE = appUpdated;
   window.LAUNCH_APP_BEFORE_DESTROY = appBeforeDestroy;
   window.LAUNCH_APP_SHOW_WEIXIN_TO_BROWSER = launchShowWeixinToBrowser;
-  // window.LAUNCH_APP_SHARE_TIMELINE = LAUNCH_APP_SHARE_TIMELINE;
-  // window.LAUNCH_APP_SHARE_APP_MESSAGE = LAUNCH_APP_SHARE_APP_MESSAGE;
 
   return {
     LAUNCH_APP_UPDATE: appUpdated,
