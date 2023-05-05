@@ -1,7 +1,7 @@
 // Default options.
 const defaultOptions = {
   weixinJsSdkTicket: '',
-  launchContainerQuery: '',
+  launchContainerQuery: '.mazey-launch-app-selector',
   launchShowWeixinToBrowserImgUrl: '',
   canShowWeixinToBrowser: false,
   extInfo: '',
