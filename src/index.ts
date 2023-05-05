@@ -3,6 +3,7 @@ const defaultOptions = {
   weixinJsSdkTicket: '',
   launchContainerQuery: '',
   launchShowWeixinToBrowserImgUrl: '',
+  canShowWeixinToBrowser: false,
   extInfo: '',
   wexinServiceAccountAppId: '',
   openPlatformMobileAppId: '',
@@ -11,6 +12,7 @@ const defaultOptions = {
   launchBtnClassName: 'mazey-launch-app-inner-btn',
   launchBtnStyle: '', // 'top: 0; right: 0; bottom: 0; left: 0;' +
   launchBtnText: 'Launch App ;-)',
+  launchErrorLink: '',
   canContinuousUpdating: false,
   onMenuShareTimelineOptions: undefined,
   onMenuShareAppMessageOptions: undefined,
@@ -18,6 +20,7 @@ const defaultOptions = {
   isWxDebug: false,
   canLaunchApp: () => true,
   launchBtnClick: () => undefined,
+  launchReady: () => undefined,
 };
 
 /**
@@ -31,10 +34,12 @@ export default (
     launchContainerQuery?: string;
     genTagPrefixStr?: string;
     launchShowWeixinToBrowserImgUrl?: string;
+    canShowWeixinToBrowser?: boolean;
     launchShowWeixinToBrowserClassName?: string;
     launchBtnClassName?: string;
     launchBtnStyle?: string;
     launchBtnText?: string;
+    launchErrorLink?: string;
     extInfo?: string;
     wexinServiceAccountAppId?: string;
     openPlatformMobileAppId?: string;
@@ -45,6 +50,7 @@ export default (
     isWxDebug?: boolean;
     canLaunchApp?: (data: any) => boolean;
     launchBtnClick?: () => void;
+    launchReady?: () => void;
   } = defaultOptions
 ): retVal => {
   const _options = Object.assign(defaultOptions, options);
@@ -53,10 +59,12 @@ export default (
     launchContainerQuery,
     genTagPrefixStr,
     launchShowWeixinToBrowserImgUrl,
+    canShowWeixinToBrowser,
     launchShowWeixinToBrowserClassName,
     launchBtnClassName,
     launchBtnStyle,
     launchBtnText,
+    launchErrorLink,
     wexinServiceAccountAppId,
     openPlatformMobileAppId,
     canContinuousUpdating,
@@ -66,6 +74,7 @@ export default (
     isWxDebug,
     canLaunchApp,
     launchBtnClick,
+    launchReady,
   } = _options;
   let { extInfo } = _options;
   // Build:
@@ -128,7 +137,6 @@ export default (
           openTagList: ['wx-open-launch-app'], // 可选，需要使用的开放标签列表
         });
         wx.ready(function() {
-          window.LAUNCH_APP_READY = true;
           // config 信息验证后会执行 ready 方法，所有接口调用都必须在 config 接口获得结果之后，config 是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在 ready 函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在 ready 函数中
           // Share to timeline
           if (onMenuShareTimelineOptions) {
@@ -158,6 +166,8 @@ export default (
             LaunchCon.log('window LAUNCH_APP_SHARE_APP_MESSAGE', opt);
             wx.onMenuShareAppMessage(opt);
           };
+          window.LAUNCH_APP_READY = true;
+          launchReady && launchReady();
           const batchGenerateWxTag = () => {
             const containers = $(launchContainerQuery);
             LaunchCon.log(
@@ -168,6 +178,7 @@ export default (
             );
             if (containers.length > 0) {
               containers.each(function(index: number, el: any) {
+                // Key
                 let key = $(el).attr('data-launch-app-key');
                 if (!key) {
                   const keyEle = $(el).parents('[data-launch-app-key]:eq(0)');
@@ -181,6 +192,7 @@ export default (
                 }
                 const positionDomClass = `mazey-launch-app-tag-${key}`;
                 const tag = $(`.${positionDomClass} wx-open-launch-app`);
+                // Ext Info
                 let eleExtInfo = $(el).attr('data-launch-app-ext-info');
                 if (!eleExtInfo) {
                   const eleExtInfoEle = $(el).parents(
@@ -197,6 +209,27 @@ export default (
                 }
                 if (eleExtInfo) {
                   extInfo = eleExtInfo;
+                }
+                // Error Link
+                let eleErrorLink = $(el).attr('data-launch-app-error-link');
+                if (!eleErrorLink) {
+                  const eleErrorLinkEle = $(el).parents(
+                    '[data-launch-app-error-link]:eq(0)'
+                  );
+                  if (eleErrorLinkEle.length > 0) {
+                    eleErrorLink = eleErrorLinkEle.attr(
+                      'data-launch-app-error-link'
+                    );
+                    LaunchCon.log(
+                      'eleErrorLinkEle parents',
+                      eleErrorLinkEle,
+                      eleErrorLink
+                    );
+                  }
+                }
+                let realErrorLink = launchErrorLink;
+                if (eleErrorLink) {
+                  realErrorLink = eleErrorLink;
                 }
                 const genTag = (positionDomClass: string) => {
                   const prefix = genTagPrefixStr;
@@ -252,11 +285,17 @@ export default (
                       $('[id^=\'' + prefix + '\']').hide();
                       // TODO
                       // $('.' + positionDomClass + ':eq(0)').click();
-                      // launchShowWeixinToBrowser();
+                      if (canShowWeixinToBrowser) {
+                        launchShowWeixinToBrowser();
+                      }
+                      if (realErrorLink) {
+                        LaunchCon.log('realErrorLink', realErrorLink);
+                        location.href = realErrorLink;
+                      }
                     });
                     mazeyLaunchBtn.addEventListener('click', function(e) {
                       LaunchCon.log('click event', e);
-                      launchBtnClick();
+                      launchBtnClick && launchBtnClick();
                     });
                   }
                 };
@@ -342,7 +381,9 @@ export default (
   }
 
   function getTicket() {
-    return Promise.resolve(weixinJsSdkTicket || window.LAUNCH_APP_WEIXIN_JS_SDK_TICKET);
+    return Promise.resolve(
+      weixinJsSdkTicket || window.LAUNCH_APP_WEIXIN_JS_SDK_TICKET
+    );
   }
 
   function destroyWeixinLaunchEvent() {

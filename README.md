@@ -24,15 +24,25 @@ npm install mazey-wechat-launch-app --save
 import LAUNCH_APP from 'mazey-wechat-launch-app';
 
 const options = {
+  weixinJsSdkTicket: 'bxLdikRXVb',
   launchContainerQuery: '.example-btn',
-  launchShowWeixinToBrowserImgUrl: '//example.com/example.png',
+  wexinServiceAccountAppId: 'wx123',
+  openPlatformMobileAppId: 'wx456',
   extInfo: 'example://example/example',
-  wexinServiceAccountAppId: 'example',
-  openPlatformMobileAppId: 'example',
 };
 
 LAUNCH_APP(options);
 ```
+
+Options:
+
+| Attribute | Description | Type | Values |
+| :------------ | :------------ | :------------ | :------------ |
+| weixinJsSdkTicket | jsapi_ticket 公众号用于调用微信JS接口的临时票据 | string | Example: 'bxLdikRXVb' |
+| launchContainerQuery | selectors 有效的 CSS 选择器字符串 | string | Example: '.example-btn' |
+| wexinServiceAccountAppId | AppId 公众号的唯一标识 | string | Example: 'wx123' |
+| openPlatformMobileAppId | AppId 所需跳转的移动应用的AppID | string | Example: 'wx456' |
+| extInfo | extinfo 跳转所需额外信息 | string | Example: 'example://example/example' |
 
 ## Contributing
 

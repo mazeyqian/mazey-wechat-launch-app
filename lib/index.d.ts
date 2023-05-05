@@ -1,26 +1,19 @@
 /**
  * Launch App
  *
- * @param {string} jqSelector Example: '#mazey-wx-btn-report'
- * @param {string} genTagPrefixStr Example: 'mazey-launch-btn-'
- * @param {string} launchShowWeixinToBrowserClassName Example: 'mazey-wx-to-browser'
- * @param {string} launchBtnClassName Example: 'mazey-btn'
- * @param {string} extInfo Example: 'mazey://launch/page'
- * @param {string} wexinServiceAccountAppId Example: 'wx1234'
- * @param {string} openPlatformMobileAppId Example: 'wx5678'
- * @param {boolean} isConClosed
- * @param {function} canLaunchApp
- * @param {function} canOpenAppFromWeixin
  * @returns {void}
  */
 declare const _default: (options?: {
+    weixinJsSdkTicket?: string | undefined;
     launchContainerQuery?: string | undefined;
     genTagPrefixStr?: string | undefined;
     launchShowWeixinToBrowserImgUrl?: string | undefined;
+    canShowWeixinToBrowser?: boolean | undefined;
     launchShowWeixinToBrowserClassName?: string | undefined;
     launchBtnClassName?: string | undefined;
     launchBtnStyle?: string | undefined;
     launchBtnText?: string | undefined;
+    launchErrorLink?: string | undefined;
     extInfo?: string | undefined;
     wexinServiceAccountAppId?: string | undefined;
     openPlatformMobileAppId?: string | undefined;
@@ -31,6 +24,7 @@ declare const _default: (options?: {
     isWxDebug?: boolean | undefined;
     canLaunchApp?: ((data: any) => boolean) | undefined;
     launchBtnClick?: (() => void) | undefined;
+    launchReady?: (() => void) | undefined;
 }) => retVal;
 export default _default;
 //# sourceMappingURL=index.d.ts.map
