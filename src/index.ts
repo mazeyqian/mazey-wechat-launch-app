@@ -98,6 +98,36 @@ export default (
   });
   LaunchCon.log('Launch App');
 
+  let defaultTimeOptions = {
+    title: '',
+    link: '',
+    imgUrl: '',
+    success: () => undefined,
+    cancel: () => undefined,
+  };
+  let deafultMessageOptions = {
+    title: '',
+    desc: '',
+    link: '',
+    imgUrl: '',
+    type: '',
+    dataUrl: '',
+    success: () => undefined,
+    cancel: () => undefined,
+  };
+  const defaultShareOptions = {
+    title: document.title,
+    link: location.href,
+  };
+  defaultTimeOptions = {
+    ...defaultTimeOptions,
+    ...defaultShareOptions,
+  };
+  deafultMessageOptions = {
+    ...deafultMessageOptions,
+    ...defaultShareOptions,
+  };
+
   function renderWXOpenLaunchApp(
     wexinServiceAccountAppId = '',
     openPlatformMobileAppId = ''
@@ -149,6 +179,10 @@ export default (
           window.LAUNCH_APP_SHARE_TIMELINE = (
             opt: MenuShareTimelineOptions
           ) => {
+            opt = {
+              ...defaultTimeOptions,
+              ...opt,
+            };
             LaunchCon.log('window LAUNCH_APP_SHARE_TIMELINE', opt);
             wx.onMenuShareTimeline(opt);
           };
@@ -163,6 +197,10 @@ export default (
           window.LAUNCH_APP_SHARE_APP_MESSAGE = (
             opt: MenuShareAppMessageOptions
           ) => {
+            opt = {
+              ...deafultMessageOptions,
+              ...opt,
+            };
             LaunchCon.log('window LAUNCH_APP_SHARE_APP_MESSAGE', opt);
             wx.onMenuShareAppMessage(opt);
           };
