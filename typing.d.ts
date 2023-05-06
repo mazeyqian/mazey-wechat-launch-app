@@ -43,6 +43,7 @@ interface Window {
   mazey: any;
   sha1: any;
   $: any;
+  jQuery: any;
 }
 
 interface retVal {
@@ -51,4 +52,7 @@ interface retVal {
   LAUNCH_APP_SHOW_WEIXIN_TO_BROWSER(): void;
   LAUNCH_APP_SHARE_TIMELINE: LAUNCH_APP_SHARE_TIMELINE;
   LAUNCH_APP_SHARE_APP_MESSAGE: LAUNCH_APP_SHARE_APP_MESSAGE;
+  start(data: any): void;
+  update(data: any): void;
+  destroy(): void;
 }

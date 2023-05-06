@@ -91,7 +91,10 @@ export default (
   const mazey = window.mazey;
   const sha1 = window.sha1;
   const wx = window.wx;
-  const $ = window.$;
+  const $ = window.$ || window.jQuery;
+  if (!(mazey && sha1 && wx && $)) {
+    console.error('Launch App: wx or sha1 or $ or mazey is not found');
+  }
   let batchGenerateWxTagFn: () => void = () => undefined;
   const LaunchCon = mazey.genCustomConsole('LaunchCon:', {
     isClosed: isConClosed,
@@ -318,7 +321,7 @@ export default (
                     });
                     mazeyLaunchBtn.addEventListener('error', function(e: any) {
                       // Error
-                      LaunchCon.error('fail:', e.detail);
+                      LaunchCon.error(e.detail);
                       // Prefix
                       $('[id^=\'' + prefix + '\']').hide();
                       // TODO
@@ -349,12 +352,12 @@ export default (
           batchGenerateWxTagFn = batchGenerateWxTag;
         });
         wx.error(function(res: any) {
-          LaunchCon.error('fail', res);
+          LaunchCon.error(res);
         });
         return 'success:launch_app';
       })
       .catch(err => {
-        LaunchCon.error('fail:launch_app', err);
+        LaunchCon.error(err);
       });
   }
 
@@ -455,5 +458,9 @@ export default (
     LAUNCH_APP_SHOW_WEIXIN_TO_BROWSER: launchShowWeixinToBrowser,
     LAUNCH_APP_SHARE_TIMELINE,
     LAUNCH_APP_SHARE_APP_MESSAGE,
+    // Alias
+    start: appUpdated,
+    update: appUpdated, // Same as start
+    destroy: appBeforeDestroy,
   };
 };

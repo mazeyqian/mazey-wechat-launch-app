@@ -18,6 +18,8 @@
 npm install mazey-wechat-launch-app --save
 ```
 
+注意：本项目依赖[微信 JS-SDK](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#3)、[js-sha1](https://github.com/emn178/js-sha1)、[jQuery](https://jquery.com/)、[mazey](https://github.com/mazeyqian/mazey)，请确保已经引入，程序会在初始化的时候探测 `window.wx`、`window.sha1`、`window.$`/`window.jQuery`、`window.mazey`。
+
 ## Usage
 
 ```
@@ -30,11 +32,11 @@ const options = {
   openPlatformMobileAppId: 'wx456',
   extInfo: 'example://example/example',
 };
-
-LAUNCH_APP(options);
+const app = LAUNCH_APP(options);
+app.start();
 ```
 
-Options:
+Parameters(`options`):
 
 | Attribute | Description | Type | Values |
 | :------------ | :------------ | :------------ | :------------ |
@@ -43,6 +45,14 @@ Options:
 | wexinServiceAccountAppId | AppId 公众号的唯一标识 | string | （必填）例如：'wx123' |
 | openPlatformMobileAppId | AppId 所需跳转的移动应用的AppID | string | （必填）例如：'wx456' |
 | extInfo | [extinfo](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_Open_Tag.html#%E8%B7%B3%E8%BD%ACAPP%EF%BC%9Awx-open-launch-app) 跳转所需额外信息 | string | （可选）例如：'example://example/example' |
+
+Returns(`app`):
+
+| Attribute | Description | Type | Values |
+| :------------ | :------------ | :------------ | :------------ |
+| start | 生成 | function | - |
+| update | 更新 | function | - |
+| destroy | 销毁 | function | - |
 
 ## Contributing
 
