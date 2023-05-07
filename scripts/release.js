@@ -3,4 +3,4 @@
 // release
 const { release } = require('mazey/scripts/github-helper.js');
 
-release();
+release(undefined, { defaultBranch: 'main' });

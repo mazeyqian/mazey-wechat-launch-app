@@ -36,9 +36,9 @@ const app = LAUNCH_APP(options);
 app.start();
 ```
 
-Parameters(`options`):
+### 参数
 
-| Attribute | Description | Type | Values |
+| 参数 | 说明 | 类型 | 值 |
 | :------------ | :------------ | :------------ | :------------ |
 | weixinJsSdkTicket | [jsapi_ticket](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62) 公众号用于调用微信JS接口的临时票据 | string | （必填）例如：'bxLdikRXVb' |
 | launchContainerQuery | [selectors](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Selectors) 有效的 CSS 选择器字符串，通常是填充按钮的父容器 | string | （必填）例如：'.example-btn', '#example-btn' |
@@ -46,9 +46,9 @@ Parameters(`options`):
 | openPlatformMobileAppId | AppId 所需跳转的移动应用的AppID | string | （必填）例如：'wx456' |
 | extInfo | [extinfo](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_Open_Tag.html#%E8%B7%B3%E8%BD%ACAPP%EF%BC%9Awx-open-launch-app) 跳转所需额外信息 | string | （可选）例如：'example://example/example' |
 
-Returns(`app`):
+### 方法
 
-| Attribute | Description | Type | Values |
+| 方法 | 说明 | 类型 | 值 |
 | :------------ | :------------ | :------------ | :------------ |
 | start | 生成 | function | - |
 | update | 更新 | function | - |
