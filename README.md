@@ -22,6 +22,8 @@ npm install mazey-wechat-launch-app --save
 
 ## Usage
 
+### NPM
+
 ```
 import LAUNCH_APP from 'mazey-wechat-launch-app';
 
@@ -35,6 +37,29 @@ const options = {
 const app = LAUNCH_APP(options);
 app.start();
 ```
+
+### CDN
+
+```
+<script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+<script type="text/javascript" src="//i.mazey.net/lib/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="//i.mazey.net/lib/encode/js-sha1/0.6.0/sha1.min.js"></script>
+<script type="text/javascript" src="//i.mazey.net/lib/mazey/3.6.6/mazey.min.js"></script>
+<script type="text/javascript" src="//i.mazey.net/lib/mazey-wechat-launch-app/1.1.2/launch-app.min.js"></script>
+<script>
+  var options = {
+    weixinJsSdkTicket: 'bxLdikRXVb',
+    launchContainerQuery: '.example-btn',
+    wexinServiceAccountAppId: 'wx123',
+    openPlatformMobileAppId: 'wx456',
+    extInfo: 'example://example/example',
+  };
+  var app = window.LAUNCH_APP(options);
+  app.start();
+</script>
+```
+
+## API
 
 ### 参数
 
