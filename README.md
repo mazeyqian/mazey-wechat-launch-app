@@ -45,7 +45,8 @@ app.start();
     id="mazey-launch-app-btn-prefix-mazey-launch-app-tag-0"
     appid="wx456"
     extinfo="example://example/example"
-    style="z-index: 99; position: absolute; width: 100%; height: 100%; opacity: 1; background: transparent; overflow: hidden; left: 0;">
+    style="z-index: 99; position: absolute; width: 100%; height: 100%; opacity: 1; background: transparent; overflow: hidden; left: 0;"
+  >
     <script type="text/wxtag-template">
       <style>.mazey-launch-app-inner-btn { opacity: 0; width: 100%; height: 100%; backgroud: transparent; color: #300f54; border: none; box-sizing: border-box; text-align: center; vertical-align: middle; }</style>
       <button class="mazey-launch-app-inner-btn">Launch App</button>
