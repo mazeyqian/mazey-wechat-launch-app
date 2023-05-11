@@ -19,6 +19,7 @@ const defaultOptions = {
   isConClosed: true,
   isWxDebug: false,
   canLaunchApp: () => true,
+  canFireErrorLinkDirectly: () => false,
   launchBtnClick: () => undefined,
   launchReady: () => undefined,
 };
@@ -49,6 +50,7 @@ export default (
     isConClosed?: boolean;
     isWxDebug?: boolean;
     canLaunchApp?: (data: any) => boolean;
+    canFireErrorLinkDirectly?: () => boolean;
     launchBtnClick?: () => void;
     launchReady?: () => void;
   } = defaultOptions
@@ -73,6 +75,7 @@ export default (
     isConClosed,
     isWxDebug,
     canLaunchApp,
+    canFireErrorLinkDirectly,
     launchBtnClick,
     launchReady,
   } = _options;
@@ -130,6 +133,46 @@ export default (
     ...deafultMessageOptions,
     ...defaultShareOptions,
   };
+  const genLaunchBtn = (content = '', extStyle = '', tagName = 'button') => {
+    // onclick=\'window.LAUNCH_APP_HIDE_WEIXIN_BROWSER()\'
+    const str =
+      `<style>.${launchBtnClassName} {` +
+      'opacity: 0;' +
+      'width: 100%;' +
+      'height: 100%;' +
+      'backgroud: transparent;' +
+      'color: #300f54;' +
+      'border: none;' +
+      'box-sizing: border-box;' +
+      'text-align: center;' +
+      'vertical-align: middle;' +
+      launchBtnStyle +
+      extStyle +
+      '}</style>' +
+      `<${tagName} class="${launchBtnClassName}"` +
+      (content && tagName === 'button' ? ` onclick="${content}"` : '') +
+      (content && tagName === 'a' ? ` target="_self" href="${content}"` : '') +
+      '>' +
+      launchBtnText +
+      `</${tagName}>`;
+    return str;
+  };
+  const launchBtn = genLaunchBtn();
+  // `<style>.${launchBtnClassName} {` +
+  // 'opacity: 0;' +
+  // 'width: 100%;' +
+  // 'height: 100%;' +
+  // 'backgroud: transparent;' +
+  // 'color: #300f54;' +
+  // 'border: none;' +
+  // 'box-sizing: border-box;' +
+  // 'text-align: center;' +
+  // 'vertical-align: middle;' +
+  // launchBtnStyle +
+  // '}</style>' +
+  // `<button class="${launchBtnClassName}">` +
+  // launchBtnText +
+  // '</button>';
 
   function renderWXOpenLaunchApp(
     wexinServiceAccountAppId = '',
@@ -275,22 +318,6 @@ export default (
                 const genTag = (positionDomClass: string) => {
                   const prefix = genTagPrefixStr;
                   const positionDomId = prefix + positionDomClass;
-                  const launchBtn =
-                    `<style>.${launchBtnClassName} {` +
-                    'opacity: 0;' +
-                    'width: 100%;' +
-                    'height: 100%;' +
-                    'backgroud: transparent;' +
-                    'color: #300f54;' +
-                    'border: none;' +
-                    'box-sizing: border-box;' +
-                    'text-align: center;' +
-                    'vertical-align: middle;' +
-                    launchBtnStyle +
-                    '}</style>' +
-                    `<button class="${launchBtnClassName}">` +
-                    launchBtnText +
-                    '</button>';
                   const tagStr =
                     '<wx-open-launch-app' +
                     ' id=\'' +
@@ -440,6 +467,41 @@ export default (
     }
     if (canContinuousUpdating && window.LAUNCH_APP_LOAD && canLaunchApp(data)) {
       batchGenerateWxTagFn();
+    }
+    // Failback
+    if (canFireErrorLinkDirectly()) {
+      const containers = $(launchContainerQuery);
+      if (containers.length > 0) {
+        containers.each(function(index: number, el: any) {
+          const c = $(el).children('.' + launchBtnClassName);
+          if (c && c.length) {
+            return;
+          }
+          // Error Link
+          let eleErrorLink = $(el).attr('data-launch-app-error-link');
+          if (!eleErrorLink) {
+            const eleErrorLinkEle = $(el).parents(
+              '[data-launch-app-error-link]:eq(0)'
+            );
+            if (eleErrorLinkEle.length > 0) {
+              eleErrorLink = eleErrorLinkEle.attr('data-launch-app-error-link');
+            }
+          }
+          if (
+            eleErrorLink &&
+            typeof eleErrorLink === 'string' &&
+            eleErrorLink.length
+          ) {
+            // const launchBtn = genLaunchBtn(`location.href=${eleErrorLink};`, 'position: absolute; left: 0; z-index: 999;', 'a');
+            const launchBtn = genLaunchBtn(
+              eleErrorLink,
+              'position: absolute; left: 0; z-index: 999;',
+              'a'
+            );
+            $(el).append(launchBtn);
+          }
+        });
+      }
     }
   }
 

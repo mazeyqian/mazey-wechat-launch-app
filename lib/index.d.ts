@@ -23,6 +23,7 @@ declare const _default: (options?: {
     isConClosed?: boolean | undefined;
     isWxDebug?: boolean | undefined;
     canLaunchApp?: ((data: any) => boolean) | undefined;
+    canFireErrorLinkDirectly?: (() => boolean) | undefined;
     launchBtnClick?: (() => void) | undefined;
     launchReady?: (() => void) | undefined;
 }) => retVal;
