@@ -426,11 +426,11 @@ export default (
     if ($('.mazey-launch-app-mask').length === 0) {
       $('body').append(
         '<div class=\'mazey-launch-app-mask\' onclick=\'window.LAUNCH_APP_HIDE_WEIXIN_BROWSER()\'>' +
-          `<img
-            class='mazey-launch-app-img ${launchShowWeixinToBrowserClassName}'
-            src='${launchShowWeixinToBrowserImgUrl}'
-            alt='Launch App'
-          />` +
+          '<img ' +
+          `class='mazey-launch-app-img ${launchShowWeixinToBrowserClassName}' ` +
+          `src='${launchShowWeixinToBrowserImgUrl}' ` +
+          'alt=\'Launch App\' ' +
+          '/>' +
           '</div>'
       );
     } else {
