@@ -389,33 +389,32 @@ export default (
   }
 
   function launchShowWeixinToBrowser() {
-    const styleStr = `
-      .mazey-launch-app-mask {
-        position: fixed;
-        top: 0; right: 0; bottom: 0; left: 0;
-        background-color: rgba(0, 0, 0, .5);
-        text-align: right;
-        font-size: 0;
-        white-space: nowrap;
-        overflow: auto;
-        z-index: 999;
-      }
-      .mazey-launch-app-img {
-        display: inline-block;
-        vertical-align: middle;
-        text-align: left;
-        font-size: 14px;
-        white-space: normal;
-        width: 50vw;
-        margin: 0.5rem 0.5rem 0 0;
-      }
-      .mazey-launch-app-img:after {
-        content: '';
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-      }
-    `;
+    const styleStr =
+      '.mazey-launch-app-mask { ' +
+      'position: fixed; ' +
+      'top: 0; right: 0; bottom: 0; left: 0; ' +
+      'background-color: rgba(0, 0, 0, .5); ' +
+      'text-align: right; ' +
+      'font-size: 0; ' +
+      'white-space: nowrap; ' +
+      'overflow: auto; ' +
+      'z-index: 999; ' +
+      '} ' +
+      '.mazey-launch-app-img { ' +
+      'display: inline-block; ' +
+      'vertical-align: middle; ' +
+      'text-align: left; ' +
+      'font-size: 14px; ' +
+      'white-space: normal; ' +
+      'width: 50vw; ' +
+      'margin: 0.5rem 0.5rem 0 0; ' +
+      '} ' +
+      '.mazey-launch-app-img:after { ' +
+      'content: ""; ' +
+      'display: inline-block; ' +
+      'height: 100%; ' +
+      'vertical-align: middle; ' +
+      '}';
     mazey.addStyle(styleStr, {
       id: 'mazey-launch-app-mask-style',
     });
@@ -427,11 +426,11 @@ export default (
     if ($('.mazey-launch-app-mask').length === 0) {
       $('body').append(
         '<div class=\'mazey-launch-app-mask\' onclick=\'window.LAUNCH_APP_HIDE_WEIXIN_BROWSER()\'>' +
-          `<img
-            class='mazey-launch-app-img ${launchShowWeixinToBrowserClassName}'
-            src='${launchShowWeixinToBrowserImgUrl}'
-            alt='Launch App'
-          />` +
+          '<img ' +
+          `class='mazey-launch-app-img ${launchShowWeixinToBrowserClassName}' ` +
+          `src='${launchShowWeixinToBrowserImgUrl}' ` +
+          'alt=\'Launch App\' ' +
+          '/>' +
           '</div>'
       );
     } else {
