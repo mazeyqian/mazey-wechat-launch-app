@@ -134,7 +134,6 @@ export default (
     ...defaultShareOptions,
   };
   const genLaunchBtn = (content = '', extStyle = '', tagName = 'button') => {
-    // onclick=\'window.LAUNCH_APP_HIDE_WEIXIN_BROWSER()\'
     const str =
       `<style>.${launchBtnClassName}{` +
       'opacity: 0;' +
@@ -336,8 +335,6 @@ export default (
                       LaunchCon.error(e.detail);
                       // Prefix
                       $('[id^=\'' + prefix + '\']').hide();
-                      // TODO
-                      // $('.' + positionDomClass + ':eq(0)').click();
                       if (canShowWeixinToBrowser) {
                         launchShowWeixinToBrowser();
                       }
@@ -476,7 +473,6 @@ export default (
             typeof eleErrorLink === 'string' &&
             eleErrorLink.length
           ) {
-            // const launchBtn = genLaunchBtn(`location.href=${eleErrorLink};`, 'position: absolute; left: 0; z-index: 999;', 'a');
             const launchBtn = genLaunchBtn(
               eleErrorLink,
               'position:absolute;left:0;z-index:999;',
