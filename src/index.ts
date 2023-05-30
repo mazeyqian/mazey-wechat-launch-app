@@ -11,7 +11,7 @@ const defaultOptions = {
   launchShowWeixinToBrowserClassName: 'mazey-launch-app-wx-to-browser',
   launchBtnClassName: 'mazey-launch-app-inner-btn',
   launchBtnStyle: '', // 'top:0;right:0;bottom:0;left:0;' +
-  launchBtnText: 'Launch App',
+  launchBtnText: 'Launch App <br /><br /><br />',
   launchErrorLink: '',
   canContinuousUpdating: false,
   onMenuShareTimelineOptions: undefined,
