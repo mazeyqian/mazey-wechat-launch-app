@@ -57,11 +57,15 @@ app.start();
 
 注意：本项目依赖[微信 JS-SDK](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#3)、[js-sha1](https://github.com/emn178/js-sha1)、[jQuery](https://jquery.com/)、[mazey](https://github.com/mazeyqian/mazey)，请确保已经引入，程序会在初始化的时候探测 `window.wx`、`window.sha1`、`window.$`/`window.jQuery`、`window.mazey`。
 
-```
-# Install
-npm install js-sha1 jquery mazey --save
+**Install Dependencies**
 
-# Import
+```
+npm install js-sha1 jquery mazey --save
+```
+
+**Import Libraries**
+
+```
 import sha1 from 'js-sha1';
 import $ from 'jquery';
 import mazey from 'mazey';
@@ -114,14 +118,21 @@ window.mazey = mazey;
 
 ## Contributing
 
+**Install Dependencies**
+
 ```
-# Install
 npm i
+```
 
-# Serve
+**Serve**
+
+```
 npm run dev
+```
 
-# Build
+**Build**
+
+```
 npm run build
 ```
 
