@@ -6,6 +6,7 @@ const defaultOptions = {
   canShowWeixinToBrowser: false,
   extInfo: '',
   serviceAccountAppId: '',
+  wexinServiceAccountAppId: '', // Alias, same as serviceAccountAppId, will be deprecated. But still works. Compatible with old version.
   openPlatformMobileAppId: '',
   genTagPrefixStr: 'mazey-launch-app-btn-prefix-',
   launchShowWeixinToBrowserClassName: 'mazey-launch-app-wx-to-browser',
@@ -43,6 +44,7 @@ export default (
     launchErrorLink?: string;
     extInfo?: string;
     serviceAccountAppId?: string;
+    wexinServiceAccountAppId?: string;
     openPlatformMobileAppId?: string;
     canContinuousUpdating?: boolean;
     onMenuShareTimelineOptions?: MenuShareTimelineOptions;
@@ -67,7 +69,7 @@ export default (
     launchBtnStyle,
     launchBtnText,
     launchErrorLink,
-    serviceAccountAppId,
+    wexinServiceAccountAppId,
     openPlatformMobileAppId,
     canContinuousUpdating,
     onMenuShareTimelineOptions,
@@ -79,7 +81,7 @@ export default (
     launchBtnClick,
     launchReady,
   } = _options;
-  let { extInfo } = _options;
+  let { serviceAccountAppId, extInfo } = _options;
   // Build:
   const LAUNCH_APP_SHARE_TIMELINE: LAUNCH_APP_SHARE_TIMELINE = (
     opt: MenuShareTimelineOptions
@@ -422,6 +424,12 @@ export default (
 
   function renderWeixinLaunchTemplate() {
     LaunchCon.log('renderWeixinLaunchTemplate');
+    if (!serviceAccountAppId && wexinServiceAccountAppId) {
+      console.warn(
+        'wexinServiceAccountAppId will be deprecated, use serviceAccountAppId instead.'
+      );
+      serviceAccountAppId = wexinServiceAccountAppId;
+    }
     renderWXOpenLaunchApp(serviceAccountAppId, openPlatformMobileAppId);
   }
 
