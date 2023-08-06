@@ -15,6 +15,7 @@ declare const _default: (options?: {
     launchBtnText?: string | undefined;
     launchErrorLink?: string | undefined;
     extInfo?: string | undefined;
+    serviceAccountAppId?: string | undefined;
     wexinServiceAccountAppId?: string | undefined;
     openPlatformMobileAppId?: string | undefined;
     canContinuousUpdating?: boolean | undefined;
