@@ -1,6 +1,6 @@
 {
   "name": "mazey-wechat-launch-app",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Launch App in Wechat",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
@@ -64,7 +64,7 @@
     "jest": "^27.5.1",
     "lint-staged": "^10.0.8",
     "markdown-toc": "^1.2.0",
-    "mazey": "^3.6.7",
+    "mazey": "^3.9.4",
     "prettier": "^1.19.1",
     "prettier-eslint-cli": "^5.0.0",
     "rollup": "^2.79.1",

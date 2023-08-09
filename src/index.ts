@@ -10,8 +10,8 @@ const defaultOptions = {
   genTagPrefixStr: 'mazey-launch-app-btn-prefix-',
   launchShowWeixinToBrowserClassName: 'mazey-launch-app-wx-to-browser',
   launchBtnClassName: 'mazey-launch-app-inner-btn',
-  launchBtnStyle: '', // 'top: 0; right: 0; bottom: 0; left: 0;' +
-  launchBtnText: 'Launch App',
+  launchBtnStyle: '', // 'top:0;right:0;bottom:0;left:0;' +
+  launchBtnText: 'Launch App <br /><br /><br />',
   launchErrorLink: '',
   canContinuousUpdating: false,
   onMenuShareTimelineOptions: undefined,
@@ -134,9 +134,8 @@ export default (
     ...defaultShareOptions,
   };
   const genLaunchBtn = (content = '', extStyle = '', tagName = 'button') => {
-    // onclick=\'window.LAUNCH_APP_HIDE_WEIXIN_BROWSER()\'
     const str =
-      `<style>.${launchBtnClassName} {` +
+      `<style>.${launchBtnClassName}{` +
       'opacity: 0;' +
       'width: 100%;' +
       'height: 100%;' +
@@ -158,21 +157,6 @@ export default (
     return str;
   };
   const launchBtn = genLaunchBtn();
-  // `<style>.${launchBtnClassName} {` +
-  // 'opacity: 0;' +
-  // 'width: 100%;' +
-  // 'height: 100%;' +
-  // 'backgroud: transparent;' +
-  // 'color: #300f54;' +
-  // 'border: none;' +
-  // 'box-sizing: border-box;' +
-  // 'text-align: center;' +
-  // 'vertical-align: middle;' +
-  // launchBtnStyle +
-  // '}</style>' +
-  // `<button class="${launchBtnClassName}">` +
-  // launchBtnText +
-  // '</button>';
 
   function renderWXOpenLaunchApp(
     wexinServiceAccountAppId = '',
@@ -326,7 +310,7 @@ export default (
                     openPlatformMobileAppId +
                     `' extinfo='${extInfo}` +
                     '\'' +
-                    ' style=\'z-index: 99; position: absolute; width: 100%; height: 100%; opacity: 1; background: transparent; overflow: hidden; left: 0;\'' +
+                    ' style=\'z-index:99;position:absolute;width:100%;height:100%;opacity:1;background:transparent;overflow:hidden;left:0;\'' +
                     '>' +
                     '<script type=\'text/wxtag-template\'>' +
                     launchBtn +
@@ -351,8 +335,6 @@ export default (
                       LaunchCon.error(e.detail);
                       // Prefix
                       $('[id^=\'' + prefix + '\']').hide();
-                      // TODO
-                      // $('.' + positionDomClass + ':eq(0)').click();
                       if (canShowWeixinToBrowser) {
                         launchShowWeixinToBrowser();
                       }
@@ -390,30 +372,30 @@ export default (
 
   function launchShowWeixinToBrowser() {
     const styleStr =
-      '.mazey-launch-app-mask { ' +
-      'position: fixed; ' +
-      'top: 0; right: 0; bottom: 0; left: 0; ' +
-      'background-color: rgba(0, 0, 0, .5); ' +
-      'text-align: right; ' +
-      'font-size: 0; ' +
-      'white-space: nowrap; ' +
-      'overflow: auto; ' +
-      'z-index: 999; ' +
-      '} ' +
-      '.mazey-launch-app-img { ' +
-      'display: inline-block; ' +
-      'vertical-align: middle; ' +
-      'text-align: left; ' +
-      'font-size: 14px; ' +
-      'white-space: normal; ' +
-      'width: 50vw; ' +
-      'margin: 0.5rem 0.5rem 0 0; ' +
-      '} ' +
-      '.mazey-launch-app-img:after { ' +
-      'content: ""; ' +
-      'display: inline-block; ' +
-      'height: 100%; ' +
-      'vertical-align: middle; ' +
+      '.mazey-launch-app-mask{' +
+      'position:fixed;' +
+      'top:0;right:0;bottom:0;left:0;' +
+      'background-color:rgba(0, 0, 0, .5);' +
+      'text-align:right;' +
+      'font-size:0;' +
+      'white-space:nowrap;' +
+      'overflow:auto;' +
+      'z-index:999;' +
+      '}' +
+      '.mazey-launch-app-img{' +
+      'display:inline-block;' +
+      'vertical-align:middle;' +
+      'text-align:left;' +
+      'font-size:14px;' +
+      'white-space:normal;' +
+      'width:50vw;' +
+      'margin:0.5rem 0.5rem 0 0;' +
+      '}' +
+      '.mazey-launch-app-img:after{' +
+      'content:"";' +
+      'display:inline-block;' +
+      'height:100%;' +
+      'vertical-align:middle;' +
       '}';
     mazey.addStyle(styleStr, {
       id: 'mazey-launch-app-mask-style',
@@ -491,10 +473,9 @@ export default (
             typeof eleErrorLink === 'string' &&
             eleErrorLink.length
           ) {
-            // const launchBtn = genLaunchBtn(`location.href=${eleErrorLink};`, 'position: absolute; left: 0; z-index: 999;', 'a');
             const launchBtn = genLaunchBtn(
               eleErrorLink,
-              'position: absolute; left: 0; z-index: 999;',
+              'position:absolute;left:0;z-index:999;',
               'a'
             );
             $(el).append(launchBtn);
