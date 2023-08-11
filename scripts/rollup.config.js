@@ -71,7 +71,7 @@ export default {
       file: _resolve(`../lib/${'launch-app' || pkgName}.min.js`),
       format: 'iife',
       name: 'LAUNCH_APP' || iifeName,
-      // banner,
+      banner,
     },
   ],
   plugins,
