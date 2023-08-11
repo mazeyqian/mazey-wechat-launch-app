@@ -153,7 +153,7 @@ window.mazey = mazey;
 npm i
 ```
 
-**Serve**
+**Development**
 
 ```
 npm run dev
