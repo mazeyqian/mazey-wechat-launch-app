@@ -102,11 +102,11 @@ window.mazey = mazey;
 
 | 参数 | 说明 | 类型 | 值 |
 | :------------ | :------------ | :------------ | :------------ |
-| `weixinJsSdkTicket` | [jsapi_ticket](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62) 公众号用于调用微信JS接口的临时票据 | string | （必填）例如：`bxLdikRXVb` |
+| `weixinJsSdkTicket` | [jsapi_ticket](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62) 公众号用于调用微信 JS 接口的临时票据 | string | （必填）例如：`bxLdikRXVb` |
 | `launchContainerQuery` | [selectors](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Selectors) 有效的 CSS 选择器字符串，通常是填充按钮的父容器 | string | （必填）例如：`.example-btn`, `#example-btn` |
 | `serviceAccountAppId` | 公众号的唯一标识 AppId | string | （必填）例如：`wx123` |
 | `openPlatformMobileAppId` | 开放平台内所需跳转的移动应用的 AppId | string | （必填）例如：`wx456` |
-| `extInfo` | [extinfo](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_Open_Tag.html#%E8%B7%B3%E8%BD%ACAPP%EF%BC%9Awx-open-launch-app) 跳转所需额外信息 | string | （可选）例如：'example://example/example' |
+| `extInfo` | [extinfo](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_Open_Tag.html#%E8%B7%B3%E8%BD%ACAPP%EF%BC%9Awx-open-launch-app) 跳转所需额外信息 | string | （可选）例如：`example://example/example` |
 | `launchBtnStyle` | 按钮内联样式 | string | （可选）例如：`top:0;right:0;bottom:0;left:0;` |
 | `launchBtnText` | 按钮文字 | string | （可选）例如：`打开 App` |
 
@@ -114,9 +114,9 @@ window.mazey = mazey;
 
 | 方法 | 说明 | 类型 |
 | :------------ | :------------ | :------------ |
-| start | 生成 | function |
-| update | 更新 | function |
-| destroy | 销毁 | function |
+| `start` | 生成 | function |
+| `update` | 更新 | function |
+| `destroy` | 销毁 | function |
 
 ## FAQ
 
