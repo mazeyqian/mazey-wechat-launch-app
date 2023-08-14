@@ -20,7 +20,7 @@ npm install mazey-wechat-launch-app --save
 
 ## Usage
 
-### NPM
+### 1. NPM
 
 ```
 import LAUNCH_APP from 'mazey-wechat-launch-app';
@@ -75,7 +75,7 @@ window.$ = $;
 window.mazey = mazey;
 ```
 
-### CDN
+### 2. CDN
 
 ```
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
