@@ -68,7 +68,7 @@ npm install js-sha1 jquery mazey --save
 ```
 import sha1 from 'js-sha1';
 import $ from 'jquery';
-import mazey from 'mazey';
+import * as mazey from 'mazey';
 
 window.sha1 = sha1;
 window.$ = $;
