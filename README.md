@@ -81,7 +81,7 @@ window.mazey = mazey;
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/encode/js-sha1/0.6.0/sha1.min.js"></script>
-<script type="text/javascript" src="//i.mazey.net/lib/mazey/3.6.6/mazey.min.js"></script>
+<script type="text/javascript" src="//i.mazey.net/lib/mazey/3.9.5/mazey.min.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/mazey-wechat-launch-app/1.1.2/launch-app.min.js"></script>
 <script>
   var options = {
@@ -126,14 +126,14 @@ window.mazey = mazey;
 
 **2\. 如何修改按钮样式？**
 
-方法一：
+方法一（推荐）：
+
+如官方所说，模版的样式是和页面隔离的，建议将此处透明的开放标签覆盖在原按钮上，这样就可以保留原按钮的样式，同时又可以实现点击跳转。
+
+方法二：
 
 通过 `launchBtnStyle` 参数添加内联样式，通过 `launchBtnText` 参数修改按钮文字。
 
-
-方法二（推荐）：
-
-如官方所说，模版的样式是和页面隔离的，建议将此处透明的开放标签覆盖在原按钮上，这样就可以保留原按钮的样式，同时又可以实现点击跳转。
 
 **3\. 如何确保满足唤起的所有前置条件？**
 
