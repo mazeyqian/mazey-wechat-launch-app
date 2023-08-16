@@ -5,7 +5,8 @@ const defaultOptions = {
   launchShowWeixinToBrowserImgUrl: '',
   canShowWeixinToBrowser: false,
   extInfo: '',
-  wexinServiceAccountAppId: '',
+  serviceAccountAppId: '',
+  wexinServiceAccountAppId: '', // Alias, same as serviceAccountAppId, will be deprecated. But still works. Compatible with old version.
   openPlatformMobileAppId: '',
   genTagPrefixStr: 'mazey-launch-app-btn-prefix-',
   launchShowWeixinToBrowserClassName: 'mazey-launch-app-wx-to-browser',
@@ -42,6 +43,7 @@ export default (
     launchBtnText?: string;
     launchErrorLink?: string;
     extInfo?: string;
+    serviceAccountAppId?: string;
     wexinServiceAccountAppId?: string;
     openPlatformMobileAppId?: string;
     canContinuousUpdating?: boolean;
@@ -79,7 +81,7 @@ export default (
     launchBtnClick,
     launchReady,
   } = _options;
-  let { extInfo } = _options;
+  let { serviceAccountAppId, extInfo } = _options;
   // Build:
   const LAUNCH_APP_SHARE_TIMELINE: LAUNCH_APP_SHARE_TIMELINE = (
     opt: MenuShareTimelineOptions
@@ -159,7 +161,7 @@ export default (
   const launchBtn = genLaunchBtn();
 
   function renderWXOpenLaunchApp(
-    wexinServiceAccountAppId = '',
+    serviceAccountAppId = '',
     openPlatformMobileAppId = ''
   ) {
     LaunchCon.log('renderWXOpenLaunchApp');
@@ -185,7 +187,7 @@ export default (
         const signature = sha1(string1);
         wx.config({
           debug: isWxDebug, // 开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印
-          appId: wexinServiceAccountAppId, // 必填，公众号/服务号的唯一标识
+          appId: serviceAccountAppId, // 必填，公众号/服务号的唯一标识
           timestamp: timestamp, // 必填，生成签名的时间戳
           nonceStr: noncestr, // 必填，生成签名的随机串
           signature: signature, // 必填，签名
@@ -422,7 +424,13 @@ export default (
 
   function renderWeixinLaunchTemplate() {
     LaunchCon.log('renderWeixinLaunchTemplate');
-    renderWXOpenLaunchApp(wexinServiceAccountAppId, openPlatformMobileAppId);
+    if (!serviceAccountAppId && wexinServiceAccountAppId) {
+      console.warn(
+        'wexinServiceAccountAppId will be deprecated, use serviceAccountAppId instead.'
+      );
+      serviceAccountAppId = wexinServiceAccountAppId;
+    }
+    renderWXOpenLaunchApp(serviceAccountAppId, openPlatformMobileAppId);
   }
 
   function loadSha1() {

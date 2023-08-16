@@ -1,7 +1,7 @@
 {
   "name": "mazey-wechat-launch-app",
-  "version": "1.1.5",
-  "description": "Launch App in Wechat",
+  "version": "2.0.0",
+  "description": "Launch App in WeChat/Weixin",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
@@ -19,11 +19,16 @@
     "url": "git+https://github.com/mazeyqian/mazey-wechat-launch-app.git"
   },
   "keywords": [
-    "javascript",
-    "function",
+    "wechat",
+    "weixin",
     "launch",
     "app",
-    "wechat"
+    "webview",
+    "webkit",
+    "ios",
+    "android",
+    "javascript",
+    "function"
   ],
   "author": {
     "name": "Mazey Chu",
