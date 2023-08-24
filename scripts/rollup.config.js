@@ -3,9 +3,10 @@
 import babel from 'rollup-plugin-babel';
 import rollupTypescript from 'rollup-plugin-typescript2';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
+import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import cleaner from 'rollup-plugin-cleaner';
-import { terser } from 'rollup-plugin-terser';
+// import { terser } from 'rollup-plugin-terser';
 
 const path = require('path');
 const _resolve = (_path) => path.resolve(__dirname, _path);
@@ -20,13 +21,6 @@ const banner =
   ' */';
 
 const plugins = [
-  // Remove the `lib` directory before rebuilding.
-  // https://github.com/aMarCruz/rollup-plugin-cleanup
-  cleaner({
-    targets: [
-      _resolve('../lib/'),
-    ],
-  }),
   rollupTypescript(),
   commonjs({
     include: /node_modules/,
@@ -43,37 +37,59 @@ const plugins = [
   }),
   // Add minification.
   // https://github.com/TrySound/rollup-plugin-terser
-  terser({ // https://github.com/terser/terser
-    format: {
-      // https://github.com/terser/terser#format-options
-      comments: /^!\n\s\*\smazey-wechat-launch-app/, // 'some', // `false` to omit comments in the output
-    },
-  }),
-  // uglify(),
+  // terser({ // https://github.com/terser/terser
+  //   format: {
+  //     // https://github.com/terser/terser#format-options
+  //     comments: /^!\n\s\*\smazey-wechat-launch-app/, // 'some', // `false` to omit comments in the output
+  //   },
+  // }),
 ];
 
 // https://rollupjs.org/guide/en/
-export default {
-  input: _resolve('../src/index.ts'),
-  // https://rollupjs.org/guide/en/#outputformat
-  output: [
-    {
-      file: _resolve('../lib/index.cjs.js'),
-      format: 'cjs',
-      banner,
-    },
-    {
-      file: _resolve('../lib/index.esm.js'),
-      format: 'esm',
-      banner,
-    },
-    {
-      file: _resolve(`../lib/${'launch-app' || pkgName}.min.js`),
-      format: 'iife',
-      name: 'LAUNCH_APP' || iifeName,
-      banner,
-    },
-  ],
-  plugins,
-  external: [],
-};
+export default [
+  {
+    input: _resolve('../src/index.ts'),
+    // https://rollupjs.org/guide/en/#outputformat
+    output: [
+      {
+        file: _resolve('../lib/index.cjs.js'),
+        format: 'cjs',
+        exports: 'auto',
+        banner,
+      },
+      {
+        file: _resolve('../lib/index.esm.js'),
+        format: 'esm',
+        banner,
+      },
+    ],
+    plugins: [
+      // Remove the `lib` directory before rebuilding.
+      // https://github.com/aMarCruz/rollup-plugin-cleanup
+      cleaner({
+        targets: [
+          _resolve('../lib/'),
+        ],
+      }),
+      ...plugins,
+    ],
+    external: ['mazey'],
+  },
+  {
+    input: _resolve('../src/index.ts'),
+    // https://rollupjs.org/guide/en/#outputformat
+    output: [
+      {
+        file: _resolve(`../lib/${'launch-app' || pkgName}.min.js`),
+        format: 'iife',
+        name: 'LAUNCH_APP' || iifeName,
+        banner,
+      },
+    ],
+    plugins: [
+      resolve(),
+      ...plugins,
+    ],
+    external: [],
+  },
+];
