@@ -6,7 +6,7 @@ import { DEFAULT_EXTENSIONS } from '@babel/core';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import cleaner from 'rollup-plugin-cleaner';
-// import { terser } from 'rollup-plugin-terser';
+import { terser } from 'rollup-plugin-terser';
 
 const path = require('path');
 const _resolve = (_path) => path.resolve(__dirname, _path);
@@ -37,12 +37,12 @@ const plugins = [
   }),
   // Add minification.
   // https://github.com/TrySound/rollup-plugin-terser
-  // terser({ // https://github.com/terser/terser
-  //   format: {
-  //     // https://github.com/terser/terser#format-options
-  //     comments: /^!\n\s\*\smazey-wechat-launch-app/, // 'some', // `false` to omit comments in the output
-  //   },
-  // }),
+  terser({ // https://github.com/terser/terser
+    format: {
+      // https://github.com/terser/terser#format-options
+      comments: /^!\n\s\*\smazey-wechat-launch-app/, // 'some', // `false` to omit comments in the output
+    },
+  }),
 ];
 
 // https://rollupjs.org/guide/en/
