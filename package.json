@@ -69,7 +69,6 @@
     "jest": "^27.5.1",
     "lint-staged": "^10.0.8",
     "markdown-toc": "^1.2.0",
-    "mazey": "^3.9.4",
     "prettier": "^1.19.1",
     "prettier-eslint-cli": "^5.0.0",
     "rollup": "^2.79.1",
@@ -91,5 +90,8 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
+  },
+  "dependencies": {
+    "mazey": "^3.9.7"
   }
 }

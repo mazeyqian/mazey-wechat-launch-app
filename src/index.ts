@@ -1,3 +1,5 @@
+import { genCustomConsole, generateRndNum, addStyle } from 'mazey';
+
 // Default options.
 const defaultOptions = {
   weixinJsSdkTicket: '',
@@ -101,7 +103,7 @@ export default (
     console.error('Launch App: wx or sha1 or $ or mazey is not found');
   }
   let batchGenerateWxTagFn: () => void = () => undefined;
-  const LaunchCon = mazey.genCustomConsole('LaunchCon:', {
+  const LaunchCon = genCustomConsole('LaunchCon:', {
     isClosed: isConClosed,
   });
   LaunchCon.log('Launch App');
@@ -171,7 +173,7 @@ export default (
         LaunchCon.log('allRes', allRes);
         const ticket = allRes[0];
         const sha1 = allRes[1];
-        const noncestr = mazey.generateRndNum(7);
+        const noncestr = generateRndNum(7);
         const jsapi_ticket = ticket;
         const timestamp = new Date().getTime();
         const url = location.href;
@@ -399,7 +401,7 @@ export default (
       'height:100%;' +
       'vertical-align:middle;' +
       '}';
-    mazey.addStyle(styleStr, {
+    addStyle(styleStr, {
       id: 'mazey-launch-app-mask-style',
     });
     if (!window.LAUNCH_APP_HIDE_WEIXIN_BROWSER) {
