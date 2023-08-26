@@ -79,7 +79,7 @@ window.$ = $;
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/encode/js-sha1/0.6.0/sha1.min.js"></script>
-<script type="text/javascript" src="//i.mazey.net/lib/mazey-wechat-launch-app/1.1.2/launch-app.min.js"></script>
+<script type="text/javascript" src="lib/launch-app.min.js"></script>
 <script>
   var options = {
     weixinJsSdkTicket: 'bxLdikRXVb',
