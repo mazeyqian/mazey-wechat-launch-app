@@ -95,12 +95,12 @@ export default (
   ) => {
     LaunchCon.log('opt', opt);
   };
-  const mazey = window.mazey;
+  // const mazey = window.mazey;
   const sha1 = window.sha1;
   const wx = window.wx;
   const $ = window.$ || window.jQuery;
-  if (!(mazey && sha1 && wx && $)) {
-    console.error('Launch App: wx or sha1 or $ or mazey is not found');
+  if (!(sha1 && wx && $)) {
+    console.error('Launch App: wx or sha1 or $ is not found');
   }
   let batchGenerateWxTagFn: () => void = () => undefined;
   const LaunchCon = genCustomConsole('LaunchCon:', {

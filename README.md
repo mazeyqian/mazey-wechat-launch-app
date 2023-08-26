@@ -55,12 +55,12 @@ app.start();
 </div>
 ```
 
-注意：本项目依赖 [WeChat JS-SDK](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#3)、[js-sha1](https://github.com/emn178/js-sha1)、[jQuery](https://jquery.com/)、[mazey](https://github.com/mazeyqian/mazey)，请确保已经引入，程序会在初始化的时候探测 `window.wx`、`window.sha1`、`window.$`/`window.jQuery`、`window.mazey`。
+注意：本项目依赖 [WeChat JS-SDK](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#3)、[js-sha1](https://github.com/emn178/js-sha1)、[jQuery](https://jquery.com/)，请确保已经引入，程序会在初始化的时候探测 `window.wx`、`window.sha1`、`window.$`/`window.jQuery`。
 
 **Install Dependencies**
 
 ```
-npm install js-sha1 jquery mazey --save
+npm install js-sha1 jquery --save
 ```
 
 **Import Libraries**
@@ -68,11 +68,9 @@ npm install js-sha1 jquery mazey --save
 ```
 import sha1 from 'js-sha1';
 import $ from 'jquery';
-import * as mazey from 'mazey';
 
 window.sha1 = sha1;
 window.$ = $;
-window.mazey = mazey;
 ```
 
 ### 2. CDN
@@ -81,7 +79,6 @@ window.mazey = mazey;
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/encode/js-sha1/0.6.0/sha1.min.js"></script>
-<script type="text/javascript" src="//i.mazey.net/lib/mazey/3.9.5/mazey.min.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/mazey-wechat-launch-app/1.1.2/launch-app.min.js"></script>
 <script>
   var options = {
