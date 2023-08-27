@@ -50,6 +50,8 @@
     "@babel/runtime-corejs3": "^7.11.2",
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^8.3.4",
+    "@types/jquery": "^3.5.17",
+    "@types/js-sha1": "^0.6.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@webpack-cli/serve": "^1.7.0",
@@ -93,6 +95,8 @@
     }
   },
   "dependencies": {
+    "jquery": "^3.7.0",
+    "js-sha1": "^0.6.0",
     "mazey": "^3.9.7"
   }
 }

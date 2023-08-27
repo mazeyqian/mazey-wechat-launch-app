@@ -1,4 +1,6 @@
 import { genCustomConsole, generateRndNum, addStyle } from 'mazey';
+import $ from 'jquery';
+import sha1 from 'js-sha1';
 
 // Default options.
 const defaultOptions = {
@@ -96,11 +98,11 @@ export default (
     LaunchCon.log('opt', opt);
   };
   // const mazey = window.mazey;
-  const sha1 = window.sha1;
+  // const sha1 = window.sha1;
   const wx = window.wx;
-  const $ = window.$ || window.jQuery;
-  if (!(sha1 && wx && $)) {
-    console.error('Launch App: wx or sha1 or $ is not found');
+  // const $ = window.$ || window.jQuery;
+  if (!wx) {
+    console.error('Launch App: wx is not found');
   }
   let batchGenerateWxTagFn: () => void = () => undefined;
   const LaunchCon = genCustomConsole('LaunchCon:', {
@@ -260,7 +262,7 @@ export default (
                   }
                 }
                 if (!key) {
-                  key = index;
+                  key = String(index);
                 }
                 const positionDomClass = `mazey-launch-app-tag-${key}`;
                 const tag = $(`.${positionDomClass} wx-open-launch-app`);
