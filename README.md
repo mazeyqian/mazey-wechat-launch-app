@@ -20,7 +20,7 @@ npm install mazey-wechat-launch-app --save
 
 ## Usage
 
-### 1. NPM
+### 1. 使用 NPM
 
 ```
 import LAUNCH_APP from 'mazey-wechat-launch-app';
@@ -55,30 +55,12 @@ app.start();
 </div>
 ```
 
-注意：本项目依赖 [WeChat JS-SDK](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#3)、[js-sha1](https://github.com/emn178/js-sha1)、[jQuery](https://jquery.com/)，请确保已经引入，程序会在初始化的时候探测 `window.wx`、`window.sha1`、`window.$`/`window.jQuery`。
+注意：本项目依赖 [WeChat JS-SDK](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#3)，请确保已经引入，程序会在初始化的时候探测 `window.wx`。
 
-**Install Dependencies**
-
-```
-npm install js-sha1 jquery --save
-```
-
-**Import Libraries**
-
-```
-import sha1 from 'js-sha1';
-import $ from 'jquery';
-
-window.sha1 = sha1;
-window.$ = $;
-```
-
-### 2. CDN
+### 2. 使用 CDN
 
 ```
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
-<script type="text/javascript" src="//i.mazey.net/lib/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="//i.mazey.net/lib/encode/js-sha1/0.6.0/sha1.min.js"></script>
 <script type="text/javascript" src="lib/launch-app.min.js"></script>
 <script>
   var options = {
@@ -92,6 +74,8 @@ window.$ = $;
   app.start();
 </script>
 ```
+
+提示：如果项目里面已经使用了 jQuery、js-sha1、mazey 依赖库，可以使用体积更小的版本 [`v2.1.4`](https://github.com/mazeyqian/mazey-wechat-launch-app/tree/v2.1.4)。
 
 ## API
 
