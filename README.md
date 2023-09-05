@@ -75,7 +75,7 @@ app.start();
 </script>
 ```
 
-提示：如果项目里面已经使用了 jQuery、js-sha1、mazey 依赖库，可以使用体积更小的版本 [`v2.1.4`](https://github.com/mazeyqian/mazey-wechat-launch-app/tree/v2.1.4)。
+提示：如果项目里面已经使用了 jQuery、js-sha1、mazey 依赖库，可以使用体积更小的版本 [`v2.1.4`](https://github.com/mazeyqian/mazey-wechat-launch-app/releases/tag/v2.1.4)。
 
 ## API
 
