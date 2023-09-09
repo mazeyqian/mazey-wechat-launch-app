@@ -20,7 +20,7 @@ npm install mazey-wechat-launch-app --save
 
 ## Usage
 
-### NPM
+### 1. NPM
 
 ```
 import LAUNCH_APP from 'mazey-wechat-launch-app';
@@ -49,7 +49,7 @@ app.start();
   >
     <script type="text/wxtag-template">
       <style>.mazey-launch-app-inner-btn { opacity: 0; width: 100%; height: 100%; backgroud: transparent; color: #300f54; border: none; box-sizing: border-box; text-align: center; vertical-align: middle; }</style>
-      <button class="mazey-launch-app-inner-btn">Launch App</button>
+      <button class="mazey-launch-app-inner-btn">Launch App <br /><br /><br /></button>
     </script>
   </wx-open-launch-app>
 </div>
@@ -68,20 +68,20 @@ npm install js-sha1 jquery mazey --save
 ```
 import sha1 from 'js-sha1';
 import $ from 'jquery';
-import mazey from 'mazey';
+import * as mazey from 'mazey';
 
 window.sha1 = sha1;
 window.$ = $;
 window.mazey = mazey;
 ```
 
-### CDN
+### 2. CDN
 
 ```
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/encode/js-sha1/0.6.0/sha1.min.js"></script>
-<script type="text/javascript" src="//i.mazey.net/lib/mazey/3.6.6/mazey.min.js"></script>
+<script type="text/javascript" src="//i.mazey.net/lib/mazey/3.9.5/mazey.min.js"></script>
 <script type="text/javascript" src="//i.mazey.net/lib/mazey-wechat-launch-app/1.1.2/launch-app.min.js"></script>
 <script>
   var options = {
@@ -102,19 +102,48 @@ window.mazey = mazey;
 
 | 参数 | 说明 | 类型 | 值 |
 | :------------ | :------------ | :------------ | :------------ |
-| weixinJsSdkTicket | [jsapi_ticket](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62) 公众号用于调用微信JS接口的临时票据 | string | （必填）例如：'bxLdikRXVb' |
-| launchContainerQuery | [selectors](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Selectors) 有效的 CSS 选择器字符串，通常是填充按钮的父容器 | string | （必填）例如：'.example-btn', '#example-btn' |
-| serviceAccountAppId | 公众号的唯一标识 AppId | string | （必填）例如：'wx123' |
-| openPlatformMobileAppId | 开放平台内所需跳转的移动应用的 AppId | string | （必填）例如：'wx456' |
-| extInfo | [extinfo](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_Open_Tag.html#%E8%B7%B3%E8%BD%ACAPP%EF%BC%9Awx-open-launch-app) 跳转所需额外信息 | string | （可选）例如：'example://example/example' |
+| `weixinJsSdkTicket` | [jsapi_ticket](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62) 公众号用于调用微信 JS 接口的临时票据 | string | （必填）例如：`bxLdikRXVb` |
+| `launchContainerQuery` | [selectors](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Selectors) 有效的 CSS 选择器字符串，通常是填充按钮的父容器 | string | （必填）例如：`.example-btn`, `#example-btn` |
+| `serviceAccountAppId` | 公众号的唯一标识 AppId | string | （必填）例如：`wx123` |
+| `openPlatformMobileAppId` | 开放平台内所需跳转的移动应用的 AppId | string | （必填）例如：`wx456` |
+| `extInfo` | [extinfo](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_Open_Tag.html#%E8%B7%B3%E8%BD%ACAPP%EF%BC%9Awx-open-launch-app) 跳转所需额外信息 | string | （可选）例如：`example://example/example` |
+| `launchBtnStyle` | 按钮内联样式 | string | （可选）例如：`top:0;right:0;bottom:0;left:0;` |
+| `launchBtnText` | 按钮文字 | string | （可选）例如：`打开 App` |
 
 ### 方法
 
 | 方法 | 说明 | 类型 |
 | :------------ | :------------ | :------------ |
-| start | 生成 | function |
-| update | 更新 | function |
-| destroy | 销毁 | function |
+| `start` | 生成 | function |
+| `update` | 更新 | function |
+| `destroy` | 销毁 | function |
+
+## FAQ
+
+**1\. 为什么微信里面通过分享卡片能唤起，直接打开链接却无法唤起的？**
+
+截止 2023-08-10，只有微信 SDK 生成的卡片和服务号推送的消息才能唤起 App。
+
+**2\. 如何修改按钮样式？**
+
+方法一（推荐）：
+
+如官方所说，模版的样式是和页面隔离的，建议将此处透明的开放标签覆盖在原按钮上，这样就可以保留原按钮的样式，同时又可以实现点击跳转。
+
+方法二：
+
+通过 `launchBtnStyle` 参数添加内联样式，通过 `launchBtnText` 参数修改按钮文字。
+
+
+**3\. 如何确保满足唤起的所有前置条件？**
+
+（1）开放平台、服务号已认证，并且主体一致；
+
+（2）开放平台绑定服务号；
+
+（3）开放平台绑定移动应用，并且已认证；
+
+（4）服务号绑定域名。
 
 ## Contributing
 
@@ -124,7 +153,7 @@ window.mazey = mazey;
 npm i
 ```
 
-**Serve**
+**Development**
 
 ```
 npm run dev
