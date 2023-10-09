@@ -14,7 +14,7 @@
 
 使用 [NPM](https://www.npmjs.com/package/mazey-wechat-launch-app) 安装 mazey-wechat-launch-app：
 
-```
+```shell
 npm install mazey-wechat-launch-app --save
 ```
 
@@ -22,7 +22,7 @@ npm install mazey-wechat-launch-app --save
 
 ### 1. 使用 NPM
 
-```
+```javascript
 import LAUNCH_APP from 'mazey-wechat-launch-app';
 
 const options = {
@@ -38,7 +38,7 @@ app.start();
 
 `<div class="example-btn><span>打开</span></div>` 生成的 HTML 结构如下：
 
-```
+```html
 <div class="example-btn mazey-launch-app-tag-0">
   <span>打开</span>
   <wx-open-launch-app
@@ -59,7 +59,7 @@ app.start();
 
 ### 2. 使用 CDN
 
-```
+```html
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 <script type="text/javascript" src="lib/launch-app.min.js"></script>
 <script>
@@ -115,7 +115,6 @@ app.start();
 
 通过 `launchBtnStyle` 参数添加内联样式，通过 `launchBtnText` 参数修改按钮文字。
 
-
 **3\. 如何确保满足唤起的所有前置条件？**
 
 （1）开放平台、服务号已认证，并且主体一致；
@@ -128,21 +127,21 @@ app.start();
 
 ## Contributing
 
-**Install Dependencies**
+Install Dependencies:
 
-```
+```shell
 npm i
 ```
 
-**Development**
+Development:
 
-```
+```shell
 npm run dev
 ```
 
-**Build**
+Build:
 
-```
+```shell
 npm run build
 ```
 
