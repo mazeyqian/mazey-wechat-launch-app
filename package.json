@@ -1,6 +1,6 @@
 {
   "name": "mazey-wechat-launch-app",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Launch App in WeChat/Weixin",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
@@ -97,6 +97,6 @@
   "dependencies": {
     "jquery": "^3.7.0",
     "js-sha1": "^0.6.0",
-    "mazey": "^3.9.7"
+    "mazey": "^3.11.5"
   }
 }
