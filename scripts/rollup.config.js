@@ -73,7 +73,7 @@ export default [
       }),
       ...plugins,
     ],
-    external: ['mazey'],
+    external: ['mazey', 'jquery', 'js-sha1'],
   },
   {
     input: _resolve('../src/index.ts'),
