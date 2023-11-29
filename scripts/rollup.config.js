@@ -16,7 +16,7 @@ const pkgVersion = process.env.SCRIPTS_NPM_PACKAGE_VERSION || process.env.VERSIO
 const banner =
   '/*!\n' +
   ` * ${pkgName} v${pkgVersion} https://www.npmjs.com/package/mazey-wechat-launch-app\n` +
-  ` * (c) 2018-${new Date().getFullYear()} Mazey Chu\n` +
+  ` * (c) 2018-${new Date().getFullYear()} Cheng\n` +
   ' * Released under the MIT License.\n' +
   ' */';
 
