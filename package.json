@@ -1,6 +1,6 @@
 {
   "name": "mazey-wechat-launch-app",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "Launch App in WeChat/Weixin",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
@@ -31,9 +31,9 @@
     "function"
   ],
   "author": {
-    "name": "Mazey Chu",
+    "name": "Cheng",
     "email": "mazeyqian@gmail.com",
-    "url": "https://blog.mazey.net"
+    "url": "https://github.com/mazeyqian"
   },
   "license": "MIT",
   "bugs": {
@@ -97,6 +97,6 @@
   "dependencies": {
     "jquery": "^3.7.0",
     "js-sha1": "^0.6.0",
-    "mazey": "^3.11.5"
+    "mazey": "^3.12.3"
   }
 }
