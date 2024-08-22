@@ -12,15 +12,15 @@
 
 ## Install
 
-使用 [NPM](https://www.npmjs.com/package/mazey-wechat-launch-app) 安装 mazey-wechat-launch-app：
+使用 [npm](https://www.npmjs.com/package/mazey-wechat-launch-app) 安装 mazey-wechat-launch-app：
 
-```shell
+```bash
 npm install mazey-wechat-launch-app --save
 ```
 
 ## Usage
 
-### 1. 使用 NPM
+### 1. 使用 npm
 
 ```javascript
 import LAUNCH_APP from 'mazey-wechat-launch-app';
@@ -61,7 +61,7 @@ app.start();
 
 ```html
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
-<script type="text/javascript" src="lib/launch-app.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mazey-wechat-launch-app@latest/lib/launch-app.min.js"></script>
 <script>
   var options = {
     weixinJsSdkTicket: 'bxLdikRXVb',
@@ -75,7 +75,7 @@ app.start();
 </script>
 ```
 
-提示：如果项目里面已经使用了 jQuery、js-sha1、mazey 依赖库，可以使用体积更小的版本 [`v2.1.4`](https://github.com/mazeyqian/mazey-wechat-launch-app/releases/tag/v2.1.4)。
+提示：如果项目里面已经使用了 jQuery、js-sha1、mazey 依赖库，可以使用体积更小的版本 [`v2.1.4`](https://cdn.jsdelivr.net/npm/mazey-wechat-launch-app@2.1.4/lib/launch-app.min.js)。
 
 ## API
 
@@ -127,21 +127,29 @@ app.start();
 
 ## Contributing
 
+### Development Environment
+
+| Dependency | Version  |
+|------------|----------|
+| Node.js    | v14.21.3 |
+
+### Scripts
+
 Install Dependencies:
 
-```shell
+```bash
 npm i
 ```
 
 Development:
 
-```shell
+```bash
 npm run dev
 ```
 
 Build:
 
-```shell
+```bash
 npm run build
 ```
 

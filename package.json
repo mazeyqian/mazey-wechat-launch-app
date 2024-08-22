@@ -6,6 +6,8 @@
   "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
   "mainEntryPointFilePath": "lib/index.d.ts",
+  "unpkg": "lib/launch-app.min.js",
+  "jsdelivr": "lib/launch-app.min.js",
   "scripts": {
     "dev": "webpack-dev-server --config ./scripts/webpack.config.dev.js --open",
     "build": "rollup --config ./scripts/rollup.config.js",
@@ -27,6 +29,7 @@
     "webkit",
     "ios",
     "android",
+    "x5",
     "javascript",
     "function"
   ],
