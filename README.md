@@ -15,8 +15,8 @@
 
 - [Install](#install)
 - [Usage](#usage)
-  - [1. 使用 npm](#1-使用-npm)
-  - [2. 使用 CDN](#2-使用-cdn)
+  - [使用 npm](#使用-npm)
+  - [使用 CDN](#使用-cdn)
 - [API](#api)
   - [参数](#参数)
   - [方法](#方法)
@@ -36,7 +36,7 @@ npm install mazey-wechat-launch-app --save
 
 ## Usage
 
-### 1. 使用 npm
+### 使用 npm
 
 ```javascript
 import LAUNCH_APP from 'mazey-wechat-launch-app';
@@ -73,7 +73,7 @@ app.start();
 
 注意：本项目依赖 [WeChat JS-SDK](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#3)，请确保已经引入，程序会在初始化的时候探测 `window.wx`。
 
-### 2. 使用 CDN
+### 使用 CDN
 
 ```html
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
