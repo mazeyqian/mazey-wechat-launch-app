@@ -1,3 +1,4 @@
+<!-- omit from toc -->
 # mazey-wechat-launch-app
 
 [![NPM version][npm-image]][npm-url]
@@ -9,6 +10,21 @@
 [l-url]: https://github.com/mazeyqian/mazey-wechat-launch-app
 
 生成微信（WeChat/Weixin）跳转 App 所需要的按钮，经过灵活配置，可支持生成单/多个按钮。
+
+**Table of Contents**
+
+- [Install](#install)
+- [Usage](#usage)
+  - [1. 使用 npm](#1-使用-npm)
+  - [2. 使用 CDN](#2-使用-cdn)
+- [API](#api)
+  - [参数](#参数)
+  - [方法](#方法)
+- [FAQ](#faq)
+- [Contributing](#contributing)
+  - [Development Environment](#development-environment)
+  - [Scripts](#scripts)
+- [License](#license)
 
 ## Install
 
@@ -129,7 +145,7 @@ app.start();
 
 ### Development Environment
 
-| Dependency | Version  |
+| Dependencies | Version  |
 |------------|----------|
 | Node.js    | v14.21.3 |
 
