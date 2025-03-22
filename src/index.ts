@@ -23,6 +23,7 @@ const defaultOptions = {
   onMenuShareAppMessageOptions: undefined,
   isConClosed: true,
   isWxDebug: false,
+  openTagList: ['wx-open-launch-app'],
   canLaunchApp: () => true,
   canFireErrorLinkDirectly: () => false,
   launchBtnClick: () => undefined,
@@ -55,6 +56,7 @@ export default (
     onMenuShareAppMessageOptions?: MenuShareAppMessageOptions;
     isConClosed?: boolean;
     isWxDebug?: boolean;
+    openTagList?: string[];
     canLaunchApp?: (data: any) => boolean;
     canFireErrorLinkDirectly?: () => boolean;
     launchBtnClick?: () => void;
@@ -80,6 +82,7 @@ export default (
     onMenuShareAppMessageOptions,
     isConClosed,
     isWxDebug,
+    openTagList,
     canLaunchApp,
     canFireErrorLinkDirectly,
     launchBtnClick,
@@ -200,7 +203,7 @@ export default (
             'onMenuShareTimeline',
             'onMenuShareAppMessage',
           ], // 必填，需要使用的 JS 接口列表
-          openTagList: ['wx-open-launch-app'], // 可选，需要使用的开放标签列表
+          openTagList, // 可选，需要使用的开放标签列表
         });
         wx.ready(function() {
           // config 信息验证后会执行 ready 方法，所有接口调用都必须在 config 接口获得结果之后，config 是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在 ready 函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在 ready 函数中
