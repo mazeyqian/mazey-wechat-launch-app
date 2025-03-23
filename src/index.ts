@@ -1,4 +1,9 @@
-import { genCustomConsole, generateRndNum, addStyle } from 'mazey';
+import {
+  genCustomConsole,
+  generateRndNum,
+  addStyle,
+  getQueryParam,
+} from 'mazey';
 import $ from 'jquery';
 import sha1 from 'js-sha1';
 
@@ -100,10 +105,7 @@ export default (
   ) => {
     LaunchCon.log('opt', opt);
   };
-  // const mazey = window.mazey;
-  // const sha1 = window.sha1;
   const wx = window.wx;
-  // const $ = window.$ || window.jQuery;
   if (!wx) {
     console.error('Launch App: wx is not found');
   }
@@ -207,24 +209,6 @@ export default (
         });
         wx.ready(function() {
           // config 信息验证后会执行 ready 方法，所有接口调用都必须在 config 接口获得结果之后，config 是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在 ready 函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在 ready 函数中
-          // Share to timeline
-          if (onMenuShareTimelineOptions) {
-            LaunchCon.log(
-              'onMenuShareTimelineOptions',
-              onMenuShareTimelineOptions
-            );
-            wx.onMenuShareTimeline(onMenuShareTimelineOptions);
-          }
-          window.LAUNCH_APP_SHARE_TIMELINE = (
-            opt: MenuShareTimelineOptions
-          ) => {
-            opt = {
-              ...defaultTimeOptions,
-              ...opt,
-            };
-            LaunchCon.log('window LAUNCH_APP_SHARE_TIMELINE', opt);
-            wx.onMenuShareTimeline(opt);
-          };
           // Share to app message
           if (onMenuShareAppMessageOptions) {
             LaunchCon.log(
@@ -243,6 +227,31 @@ export default (
             LaunchCon.log('window LAUNCH_APP_SHARE_APP_MESSAGE', opt);
             wx.onMenuShareAppMessage(opt);
           };
+          // Share to timeline
+          if (onMenuShareTimelineOptions) {
+            LaunchCon.log(
+              'onMenuShareTimelineOptions',
+              onMenuShareTimelineOptions
+            );
+            wx.onMenuShareTimeline(onMenuShareTimelineOptions);
+          }
+          window.LAUNCH_APP_SHARE_TIMELINE = (
+            opt: MenuShareTimelineOptions
+          ) => {
+            opt = {
+              ...defaultTimeOptions,
+              ...opt,
+            };
+            LaunchCon.log('window LAUNCH_APP_SHARE_TIMELINE', opt);
+            wx.onMenuShareTimeline(opt);
+          };
+          // Launch App
+          if (!openPlatformMobileAppId) {
+            LaunchCon.log(
+              'openPlatformMobileAppId is required for weixin launch app'
+            );
+            return;
+          }
           window.LAUNCH_APP_READY = true;
           launchReady && launchReady();
           const batchGenerateWxTag = () => {
@@ -446,7 +455,10 @@ export default (
 
   function getTicket() {
     return Promise.resolve(
-      weixinJsSdkTicket || window.LAUNCH_APP_WEIXIN_JS_SDK_TICKET
+      weixinJsSdkTicket ||
+        window.LAUNCH_APP_WEIXIN_JS_SDK_TICKET ||
+        getQueryParam('weixinJsSdkTicket') ||
+        ''
     );
   }
 
