@@ -4,8 +4,8 @@ import {
   addStyle,
   getQueryParam,
 } from 'mazey';
-import $ from 'jquery';
-import sha1 from 'js-sha1';
+// import $ from 'jquery';
+// import sha1 from 'js-sha1';
 
 // Default options.
 const defaultOptions = {
@@ -108,6 +108,14 @@ export default (
   const wx = window.wx;
   if (!wx) {
     console.error('Launch App: wx is not found');
+  }
+  const $ = window.$ || window.jQuery;
+  if (!$) {
+    console.error('Launch App: $ is not found');
+  }
+  const sha1 = window.sha1;
+  if (!sha1) {
+    console.error('Launch App: sha1 is not found');
   }
   let batchGenerateWxTagFn: () => void = () => undefined;
   const LaunchCon = genCustomConsole('LaunchCon:', {
