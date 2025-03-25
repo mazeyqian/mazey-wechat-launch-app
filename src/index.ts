@@ -179,7 +179,15 @@ export default (
       .then(allRes => {
         LaunchCon.log('allRes', allRes);
         const ticket = allRes[0];
+        if (!ticket) {
+          LaunchCon.error('weixinJsSdkTicket is required');
+          return;
+        }
         const sha1 = allRes[1];
+        if (!sha1) {
+          LaunchCon.error('sha1 is required');
+          return;
+        }
         const noncestr = generateRndNum(7);
         const jsapi_ticket = ticket;
         const timestamp = new Date().getTime();
