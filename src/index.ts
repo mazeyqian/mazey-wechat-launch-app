@@ -475,7 +475,7 @@ export default (
     window.LAUNCH_APP_HIDE_WEIXIN_BROWSER = null;
   }
 
-  function appUpdated(data: any) {
+  function appUpdated(data: any = {}) {
     LaunchCon.log('appUpdated', data);
     if (!window.LAUNCH_APP_LOAD && canLaunchApp(data)) {
       renderWeixinLaunchTemplate();
