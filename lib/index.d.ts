@@ -23,6 +23,7 @@ declare const _default: (options?: {
     onMenuShareAppMessageOptions?: MenuShareAppMessageOptions | undefined;
     isConClosed?: boolean | undefined;
     isWxDebug?: boolean | undefined;
+    openTagList?: string[] | undefined;
     canLaunchApp?: ((data: any) => boolean) | undefined;
     canFireErrorLinkDirectly?: (() => boolean) | undefined;
     launchBtnClick?: (() => void) | undefined;
