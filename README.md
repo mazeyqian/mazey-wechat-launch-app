@@ -15,8 +15,8 @@
 
 - [Install](#install)
 - [Usage](#usage)
-  - [1. 使用 npm](#1-使用-npm)
-  - [2. 使用 CDN](#2-使用-cdn)
+  - [使用 npm](#使用-npm)
+  - [使用 CDN](#使用-cdn)
 - [API](#api)
   - [参数](#参数)
   - [方法](#方法)
@@ -36,7 +36,7 @@ npm install mazey-wechat-launch-app --save
 
 ## Usage
 
-### 1. 使用 npm
+### 使用 npm
 
 ```javascript
 import LAUNCH_APP from 'mazey-wechat-launch-app';
@@ -73,7 +73,7 @@ app.start();
 
 注意：本项目依赖 [WeChat JS-SDK](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#3)，请确保已经引入，程序会在初始化的时候探测 `window.wx`。
 
-### 2. 使用 CDN
+### 使用 CDN
 
 ```html
 <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
@@ -102,7 +102,7 @@ app.start();
 | `weixinJsSdkTicket` | [jsapi_ticket](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62) 公众号用于调用微信 JS 接口的临时票据 | string | （必填）例如：`bxLdikRXVb` |
 | `launchContainerQuery` | [selectors](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Selectors) 有效的 CSS 选择器字符串，通常是填充按钮的父容器 | string | （必填）例如：`.example-btn`, `#example-btn` |
 | `serviceAccountAppId` | 公众号的唯一标识 AppId | string | （必填）例如：`wx123` |
-| `openPlatformMobileAppId` | 开放平台内所需跳转的移动应用的 AppId | string | （必填）例如：`wx456` |
+| `openPlatformMobileAppId` | 开放平台内所需跳转的移动应用的 AppId | string | （可选）例如：`wx456` |
 | `extInfo` | [extinfo](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_Open_Tag.html#%E8%B7%B3%E8%BD%ACAPP%EF%BC%9Awx-open-launch-app) 跳转所需额外信息 | string | （可选）例如：`example://example/example` |
 | `launchBtnStyle` | 按钮内联样式 | string | （可选）例如：`top:0;right:0;bottom:0;left:0;` |
 | `launchBtnText` | 按钮文字 | string | （可选）例如：`打开 App` |
