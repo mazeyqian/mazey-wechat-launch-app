@@ -94,6 +94,9 @@ export default (
     launchReady,
   } = _options;
   let { serviceAccountAppId, extInfo } = _options;
+  const LaunchCon = genCustomConsole('LaunchCon:', {
+    isClosed: isConClosed,
+  });
   // Build:
   const LAUNCH_APP_SHARE_TIMELINE: LAUNCH_APP_SHARE_TIMELINE = (
     opt: MenuShareTimelineOptions
@@ -110,9 +113,6 @@ export default (
     console.error('Launch App: wx is not found');
   }
   let batchGenerateWxTagFn: () => void = () => undefined;
-  const LaunchCon = genCustomConsole('LaunchCon:', {
-    isClosed: isConClosed,
-  });
   LaunchCon.log('Launch App');
 
   let defaultTimeOptions = {
@@ -475,7 +475,7 @@ export default (
     window.LAUNCH_APP_HIDE_WEIXIN_BROWSER = null;
   }
 
-  function appUpdated(data: any) {
+  function appUpdated(data: any = {}) {
     LaunchCon.log('appUpdated', data);
     if (!window.LAUNCH_APP_LOAD && canLaunchApp(data)) {
       renderWeixinLaunchTemplate();
